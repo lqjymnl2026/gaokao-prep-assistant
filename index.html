@@ -222,8 +222,33 @@
           <button class="btn btn-ghost" id="timelineReset">🔄 重新挑战</button>
         </div>
         <div class="hist-col">
-          <div class="hist-title">📖 历史每日一题</div>
+          <div class="hist-title">📖 历史每日一题 <button class="link-btn" id="histQNext">🔁 换一题</button></div>
           <div class="daily-question" id="historyQBox"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card music-card">
+      <div class="card-head"><h3>🎼 长笛艺考训练计划</h3><span class="chip chip-soft">音乐生 · 长笛专业</span></div>
+      <div class="music-grid">
+        <div class="music-col">
+          <div class="hist-title">🎯 艺考倒计时</div>
+          <div class="music-countdown" id="musicCountdown"></div>
+          <div class="music-goal">目标：省统考长笛专业 90+ 分 · 校考冲刺</div>
+          <div class="music-streak">🔥 练笛连续打卡 <b id="musicStreak">3</b> 天</div>
+          <div class="music-timeline" id="musicTimeline"></div>
+        </div>
+        <div class="music-col">
+          <div class="hist-title">📋 今日练笛清单</div>
+          <ul class="music-tasks" id="musicTasks"></ul>
+          <div class="music-punch-row">
+            <button class="btn btn-primary" id="musicPunchBtn">🎶 完成练笛打卡（+15 学习币）</button>
+          </div>
+          <div class="music-punch-msg" id="musicPunchMsg"></div>
+        </div>
+        <div class="music-col">
+          <div class="hist-title">🎵 乐理小测 <button class="link-btn" id="musicQNext">🔁 换一题</button></div>
+          <div class="daily-question" id="musicQBox"></div>
         </div>
       </div>
     </div>
@@ -287,7 +312,7 @@
     </div>
 
     <div class="card">
-      <div class="card-head"><h3>⚔️ 同学 PK · 限时对战</h3><span class="chip chip-soft">5 题定胜负</span></div>
+      <div class="card-head"><h3>⚔️ 同学 PK · 限时对战</h3><span class="chip chip-soft">8 题定胜负</span></div>
       <div id="pkBox"></div>
     </div>
 
@@ -297,7 +322,7 @@
     </div>
 
     <div class="card">
-      <div class="card-head"><h3>⚡ 每日一题 · 今日</h3></div>
+      <div class="card-head"><h3>⚡ 每日一题 · 今日</h3><button class="link-btn" id="dqNext">🔁 换一题</button></div>
       <div class="daily-question" id="dailyQuestion"></div>
     </div>
   </section>
@@ -426,6 +451,7 @@
             <option value="all">全部科目</option>
             <option>语文</option><option>数学</option><option>英语</option>
             <option>历史</option><option>政治</option><option>地理</option>
+            <option>长笛</option><option>乐理</option>
           </select>
           <span class="chip chip-soft" id="contentSummary">本周 42 条记录</span>
         </div>
