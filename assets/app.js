@@ -161,7 +161,7 @@ const TREND = [0, 0, 0, 0, 0, 0, 0, 0];
 const TREND_LABELS = ['W1','W2','W3','W4','W5','W6','W7','W8'];
 
 const AI_RULES = [
-  {re:/计划/, reply:'好的，小宇！给你一份明天的建议计划：\n🌅 晨间 6:40–7:10｜英语单词 30 个 + 语文文言文朗读\n📐 上午 9:00–10:00｜数学函数专题 + 错题订正\n🧪 下午 14:00–15:00｜化学方程式默写 20 个\n🏃 傍晚运动 20 分钟，19:30–21:00 完成当日任务\n需要我帮你写进任务列表吗？'},
+  {re:/计划/, reply:'好的，李斯特！给你一份明天的建议计划：\n🌅 晨间 6:40–7:10｜英语单词 30 个 + 语文文言文朗读\n📐 上午 9:00–10:00｜数学函数专题 + 错题订正\n🧪 下午 14:00–15:00｜化学方程式默写 20 个\n🏃 傍晚运动 20 分钟，19:30–21:00 完成当日任务\n需要我帮你写进任务列表吗？'},
   {re:/错题|总是错|反复/, reply:'反复错通常是「只订正、不归因」。试试三步法：\n1️⃣ 按「概念不清 / 计算失误 / 审题偏差」给错题分类；\n2️⃣ 每道题写下 1 句错因 + 1 句下次提醒；\n3️⃣ 3 天后不看答案重做一遍。坚持两周，同类错误会明显减少 💪'},
   {re:/学不进去|状态|分心|烦躁/, reply:'学不进去很正常，先别自责～试试「5 分钟启动法」：\n⏱️ 只告诉自己「先学 5 分钟」，手机放远、环境安静；\n📖 从最喜欢的科目或最简单的任务开始；\n🧘 还烦躁就站起来伸个懒腰、喝口水，再来一轮。\n你今天已经完成 3 个任务了，非常棒！'},
   {re:/历史|政治|地理|文科/, reply:'文科提分建议：\n🏯 历史：按「时间轴 + 阶段特征」背，大事年表自己默画一遍印象最深；大题用「史实 + 分析 + 结论」结构；\n🏛️ 政治：原理必须原文准确，大题套「原理 + 材料对应 + 总结」模板，时政素材每周整理 5 条；\n🗺️ 地理：自然地理重原理推导，人文地理重区位分析，每天精读 1 幅图（等值线、气候图）。\n你的历史掌握度 84%，基础不错，优先补「地理读图」和「历史论述题」这两块短板！'},
@@ -198,14 +198,29 @@ const CONFIG = {
 };
 
 /* ============ 初始化 ============ */
+const PAGE = document.body.dataset.page || 'student';
+
 document.addEventListener('DOMContentLoaded', () => {
-  // 番茄钟渐变
-  const timerSvg = $('.timer-ring').closest('svg');
-  const defs = svgEl('defs', {});
-  const grad = svgEl('linearGradient', {id:'ringGrad', x1:'0%', y1:'0%', x2:'100%', y2:'100%'});
-  grad.append(svgEl('stop', {offset:'0%', 'stop-color':'#6366f1'}));
-  grad.append(svgEl('stop', {offset:'100%', 'stop-color':'#ec4899'}));
-  defs.append(grad); timerSvg.prepend(defs);
+  // 番茄钟渐变（学生页）
+  const timerSvg = $('.timer-ring');
+  if(timerSvg){
+    const timerRoot = timerSvg.closest('svg');
+    const defs = svgEl('defs', {});
+    const grad = svgEl('linearGradient', {id:'ringGrad', x1:'0%', y1:'0%', x2:'100%', y2:'100%'});
+    grad.append(svgEl('stop', {offset:'0%', 'stop-color':'#6366f1'}));
+    grad.append(svgEl('stop', {offset:'100%', 'stop-color':'#ec4899'}));
+    defs.append(grad); timerRoot.prepend(defs);
+  }
+
+  if(PAGE === 'parent'){
+    renderParentCharts();
+    renderTimeline();
+    renderTable();
+    renderDims();
+    startClock();
+    bindEvents();
+    return;
+  }
 
   renderStatic();
   renderTasks();
@@ -216,7 +231,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderDailyQ();
   renderBadges();
   renderSubjectBars();
-  renderTimeline();
   renderRank();
   renderPet();
   renderCombo();
@@ -237,8 +251,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderStaff();
   loadSheets();
   renderSheets();
-  renderTable();
-  renderDims();
   renderGreet();
   startClock();
   bindEvents();
@@ -247,39 +259,41 @@ document.addEventListener('DOMContentLoaded', () => {
 function startClock(){
   const now = new Date();
   const week = ['日','一','二','三','四','五','六'][now.getDay()];
-  $('#todayChip').textContent = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 周${week}`;
-  // 高考倒计时：2028-06-07
+  const chip = $('#todayChip');
+  if(chip) chip.textContent = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 周${week}`;
   const target = new Date(CONFIG.gaokaoDate);
   const days = Math.max(0, Math.ceil((target - now) / 86400000));
-  $('#countdown').textContent = days;
+  const cd = $('#countdown');
+  if(cd) cd.textContent = days;
 }
 
 function renderGreet(){
   const h = new Date().getHours();
   const g = h<6 ? '夜深了' : h<9 ? '早上好' : h<12 ? '上午好' : h<14 ? '中午好' : h<18 ? '下午好' : '晚上好';
-  $('#greetText').textContent = `👋 ${g}，小宇！`;
+  $('#greetText').textContent = `👋 ${g}，李斯特！`;
 }
 
 function renderStatic(){
-  $('#levelNum').textContent = state.level;
-  $('#xpNow').textContent = state.xp;
-  $('#xpNext').textContent = state.xpMax;
-  $('#levelRing').style.setProperty('--p', Math.round(state.xp/state.xpMax*100));
-  $('#xpBarFill').style.width = (state.xp/state.xpMax*100) + '%';
-  $('#scoreRing').style.setProperty('--p', 0);
-  $('#scoreRingNum').textContent = 0;
-  $('#doneDonutPct').textContent = '0%';
-  $('#questBarFill').style.width = '0%';
-  $('#questStarCount').textContent = 0;
-  $('#focusBarFill').style.width = (state.todayFocusMin/120*100) + '%';
-  $('#scoreBarFill').style.width = '0%';
-  $('#streakDays').textContent = state.streakDays;
-  $('#weekPoints').textContent = '+' + state.weekPoints;
-  $('#classRank').textContent = '暂无';
-  $('#badgeCount').textContent = '已解锁 0/16';
-  $('#ovScore').textContent = 0;
-  $('#goalRangeVal').textContent = '120 分钟';
-  $('#taskRangeVal').textContent = '30 个';
+  const set = (id, fn) => { const el = $(id); if(el) fn(el); };
+  set('#levelNum', el => el.textContent = state.level);
+  set('#xpNow', el => el.textContent = state.xp);
+  set('#xpNext', el => el.textContent = state.xpMax);
+  set('#levelRing', el => el.style.setProperty('--p', Math.round(state.xp/state.xpMax*100)));
+  set('#xpBarFill', el => el.style.width = (state.xp/state.xpMax*100) + '%');
+  set('#scoreRing', el => el.style.setProperty('--p', 0));
+  set('#scoreRingNum', el => el.textContent = 0);
+  set('#doneDonutPct', el => el.textContent = '0%');
+  set('#questBarFill', el => el.style.width = '0%');
+  set('#questStarCount', el => el.textContent = 0);
+  set('#focusBarFill', el => el.style.width = (state.todayFocusMin/120*100) + '%');
+  set('#scoreBarFill', el => el.style.width = '0%');
+  set('#streakDays', el => el.textContent = state.streakDays);
+  set('#weekPoints', el => el.textContent = '+' + state.weekPoints);
+  set('#classRank', el => el.textContent = '暂无');
+  set('#badgeCount', el => el.textContent = '已解锁 0/16');
+  set('#ovScore', el => el.textContent = 0);
+  set('#goalRangeVal', el => el.textContent = '120 分钟');
+  set('#taskRangeVal', el => el.textContent = '30 个');
 }
 
 /* ============ 学科掌握度 ============ */
@@ -379,21 +393,7 @@ function openChest(){
 
 /* ============ 角色与标签页切换 ============ */
 function bindEvents(){
-  // 角色切换
-  $$('.role-btn').forEach(btn => btn.addEventListener('click', () => {
-    $$('.role-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    state.role = btn.dataset.role;
-    const isParent = state.role === 'parent';
-    $('#studentApp').hidden = isParent;
-    $('#parentApp').hidden = !isParent;
-    $('#avatarBox').textContent = isParent ? '家' : '宇';
-    $('#studentBottomNav').hidden = isParent;
-    $('#parentBottomNav').hidden = !isParent;
-    syncBottomNav(state.role);
-    if(isParent){ renderParentCharts(); }
-    else { renderTasks(); renderPlan(); }
-  }));
+  if(PAGE === 'parent'){ bindParentEvents(); return; }
 
   // 学生标签页
   $$('#studentTabs .tab').forEach(t => t.addEventListener('click', () => switchTab('#studentTabs', 'student', t)));
@@ -403,7 +403,6 @@ function bindEvents(){
   // 首页跳转
   $('#goPlanBtn').addEventListener('click', () => goTab('student','plan'));
   $('#goMapBtn').addEventListener('click', () => goTab('student','map'));
-  $('#goContentBtn').addEventListener('click', () => goTab('parent','content'));
 
   // 番茄钟
   $('#timerStart').addEventListener('click', toggleTimer);
@@ -450,13 +449,6 @@ function bindEvents(){
       $('#chatForm').dispatchEvent(new Event('submit'));
     }
   });
-
-  // 家长内容筛选
-  $('#contentFilter').addEventListener('change', e => { state.contentFilter = e.target.value; renderTable(); });
-
-  // 设置滑杆
-  $('#goalRange').addEventListener('input', e => $('#goalRangeVal').textContent = e.target.value + ' 分钟');
-  $('#taskRange').addEventListener('input', e => $('#taskRangeVal').textContent = e.target.value + ' 个');
 
   // 创意功能：宠物 / 宝箱 / 底部导航
   $('#petFeedBtn').addEventListener('click', feedPet);
@@ -524,7 +516,7 @@ function bindEvents(){
   $('#histQNext').addEventListener('click', () => { state.histQIdx = (state.histQIdx + 1) % HISTORY_QS.length; renderHistoryQ(); sfx.click(); });
 
   // 初始聊天问候
-  setTimeout(() => addChatMsg('bot', '你好呀，小宇！我是 AI 学伴「小智」🧠 今天想学什么、有什么困惑，都可以告诉我～'), 400);
+  setTimeout(() => addChatMsg('bot', '你好呀，李斯特！我是 AI 学伴「小智」🧠 今天想学什么、有什么困惑，都可以告诉我～'), 400);
 }
 
 function switchTab(tabsSel, role, btn){
@@ -1206,7 +1198,7 @@ function openReport(){
   const now = new Date();
   $('#reportDate').textContent = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 · 周${['日','一','二','三','四','五','六'][now.getDay()]}`;
   const curTitle = TITLES.find(t=>t.name===state.title);
-  $('#reportPlayer').textContent = `小宇 · ${curTitle?curTitle.emoji:''} ${state.title} · ${$('#rankLine').textContent}`;
+  $('#reportPlayer').textContent = `李斯特 · ${curTitle?curTitle.emoji:''} ${state.title} · ${$('#rankLine').textContent}`;
   const done = tasks.filter(t=>t.done).length;
   const items = [
     ['✅', `${done}/${tasks.length}`, '完成任务'],
@@ -1286,7 +1278,7 @@ function renderPK(){
     const q = pk.qs[pk.qi];
     box.innerHTML = `
       <div class="pk-score">
-        <div class="ps-side me"><div class="ps-num">${pk.correct}</div><div>小宇</div></div>
+        <div class="ps-side me"><div class="ps-num">${pk.correct}</div><div>李斯特</div></div>
         <div class="ps-side"><div class="ps-num">${pk.oppScore}</div><div>${PK_OPPONENTS[pk.oppIdx].name}</div></div>
       </div>
       <div class="pk-progress">第 ${pk.qi+1} / 8 题 · ${q.subj}</div>
@@ -1306,7 +1298,7 @@ function renderPK(){
     box.innerHTML = `
       <div class="pk-result ${win?'win':tie?'':'lose'}">${title}</div>
       <div class="pk-score">
-        <div class="ps-side me"><div class="ps-num">${pk.correct}</div><div>小宇</div></div>
+        <div class="ps-side me"><div class="ps-num">${pk.correct}</div><div>李斯特</div></div>
         <div class="ps-side"><div class="ps-num">${pk.oppScore}</div><div>${PK_OPPONENTS[pk.oppIdx].name}</div></div>
       </div>
       <p style="text-align:center;font-size:13.5px;color:var(--ink-2)">${reward}</p>
@@ -1994,4 +1986,16 @@ function handleSheetUpload(e){
   };
   reader.readAsDataURL(file);
   e.target.value = '';
+}
+
+
+/* ============ 家长端页面绑定 ============ */
+function bindParentEvents(){
+  $$('#parentTabs .tab').forEach(t => t.addEventListener('click', () => switchTab('#parentTabs', 'parent', t)));
+  $$('#parentBottomNav .bn-tab').forEach(t => t.addEventListener('click', () => switchTab('#parentTabs', 'parent', t)));
+  const goBtn = $('#goContentBtn');
+  if(goBtn) goBtn.addEventListener('click', () => goTab('parent','content'));
+  $('#contentFilter').addEventListener('change', e => { state.contentFilter = e.target.value; renderTable(); });
+  $('#goalRange').addEventListener('input', e => $('#goalRangeVal').textContent = e.target.value + ' 分钟');
+  $('#taskRange').addEventListener('input', e => $('#taskRangeVal').textContent = e.target.value + ' 个');
 }
