@@ -54,9 +54,9 @@
         <h1>今天也要<span class="grad-text">元气满满</span>地学习哦 ✨</h1>
         <p>距 2028 高考还有 <b id="countdown">--</b> 天，把每一天都变成进步的一天！</p>
         <div class="hero-chips">
-          <span class="chip chip-fire">🔥 连续打卡 <b id="streakDays">12</b> 天</span>
-          <span class="chip chip-star">⭐ 本周积分 <b id="weekPoints">+286</b></span>
-          <span class="chip chip-trophy">🏆 班级排名 <b>第 8 名</b></span>
+          <span class="chip chip-fire">🔥 连续打卡 <b id="streakDays">0</b> 天</span>
+          <span class="chip chip-star">⭐ 本周积分 <b id="weekPoints">+0</b></span>
+          <span class="chip chip-trophy">🏆 班级排名 <b id="classRank">暂无</b></span>
           <span class="chip combo-chip">⚡ 今日连击 <b id="comboCount">x4</b></span>
         </div>
       </div>
@@ -79,7 +79,7 @@
     <div class="grid-3">
       <div class="card stat-card">
         <div class="stat-icon">⏱️</div>
-        <div class="stat-body"><span>今日已专注</span><b id="todayFocus">86</b><small>分钟 · 目标 120</small></div>
+        <div class="stat-body"><span>今日已专注</span><b id="todayFocus">0</b><small>分钟 · 目标 120</small></div>
         <div class="mini-bar"><i id="focusBarFill"></i></div>
       </div>
       <div class="card stat-card">
@@ -89,7 +89,7 @@
       </div>
       <div class="card stat-card">
         <div class="stat-icon">🎯</div>
-        <div class="stat-body"><span>本周学习评分</span><b id="weekScoreHome">86</b><small>较上周 <span class="up">▲ 4 分</span></small></div>
+        <div class="stat-body"><span>本周学习评分</span><b id="weekScoreHome">0</b><small>较上周 <span>—</span></small></div>
         <div class="mini-bar"><i id="scoreBarFill"></i></div>
       </div>
     </div>
@@ -159,7 +159,7 @@
         <div id="subjectBars"></div>
       </div>
       <div class="card">
-        <div class="card-head"><h3>🏅 徽章墙</h3><span class="chip chip-soft">已解锁 9/16</span></div>
+        <div class="card-head"><h3>🏅 徽章墙</h3><span class="chip chip-soft" id="badgeCount">已解锁 0/16</span></div>
         <div class="badges" id="badgeWall"></div>
       </div>
     </div>
@@ -252,6 +252,23 @@
         </div>
       </div>
     </div>
+
+    <div class="card">
+      <div class="card-head"><h3>🎼 校考曲目库</h3><span class="chip chip-soft" id="repCount">已练 0 首</span></div>
+      <div class="rep-filters" id="repFilters">
+        <button class="mini-tab active" data-cat="all">全部</button>
+        <button class="mini-tab" data-cat="协奏曲">协奏曲</button>
+        <button class="mini-tab" data-cat="奏鸣曲">奏鸣曲</button>
+        <button class="mini-tab" data-cat="中国作品">中国作品</button>
+        <button class="mini-tab" data-cat="练习曲">练习曲</button>
+      </div>
+      <div class="rep-grid" id="repGrid"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>📝 乐理真题卷</h3><span class="chip chip-soft">10 题 · 模拟统考难度</span></div>
+      <div id="theoryPaper"></div>
+    </div>
   </section>
 
   <!-- 学生 · 知识图谱 -->
@@ -285,7 +302,7 @@
       <div class="card quest-hero">
         <h3>🎮 本周闯关进度</h3>
         <div class="quest-stars" id="questStars"></div>
-        <p>累计获得 <b id="questStarCount">21</b> 颗星，达成 <b>「进阶学霸」</b> 成就 ✨</p>
+        <p>累计获得 <b id="questStarCount">0</b> 颗星，达成 <b>「初入江湖」</b> 成就 ✨</p>
         <div class="mini-bar"><i id="questBarFill"></i></div>
       </div>
       <div class="card">
@@ -350,6 +367,21 @@
       </div>
       <div class="boss-log" id="bossLog"></div>
     </div>
+
+    <div class="card boss-card wrong-boss" id="wrongBossCard">
+      <div class="card-head"><h3>👹 错题魔王</h3><span class="chip chip-soft" id="wrongBossInfo">由你的错题凝聚而成</span></div>
+      <div class="boss-row">
+        <div class="boss-figure" id="wrongBossFigure">👹</div>
+        <div class="boss-info">
+          <div class="boss-name" id="wrongBossName">错题魔王</div>
+          <div class="boss-hp-bar"><i id="wrongBossHpFill"></i></div>
+          <div class="boss-hp-text" id="wrongBossHpText"></div>
+          <div class="boss-attack-line">做对一道错题，就能削弱它！剩余错题：<b id="wrongBossLeft">0</b></div>
+        </div>
+      </div>
+      <div class="daily-question" id="wrongBossQ"></div>
+      <div class="boss-log" id="wrongBossLog"></div>
+    </div>
   </section>
 
   <!-- 学生 · AI 学伴 -->
@@ -388,11 +420,11 @@
       <div class="hero-text">
         <div class="hero-greet">👨‍👩‍👦 家长您好，这是 <b>小宇</b> 的本周学习概览</div>
         <h1>学习状态<span class="grad-text">稳中有升</span> 📈</h1>
-        <p>本周综合评分 <b id="ovScore">86</b> 分，较上周 +4 分；有效学习 <b>11.2</b> 小时，计划完成率 <b>86%</b>。</p>
+        <p>本周综合评分 <b id="ovScore">0</b> 分，较上周 —；有效学习 <b>0</b> 小时，计划完成率 <b>0%</b>。</p>
         <div class="hero-chips">
-          <span class="chip chip-fire">🔥 连续学习 <b>12</b> 天</span>
-          <span class="chip chip-star">⭐ 日均专注 <b>96</b> 分钟</span>
-          <span class="chip chip-trophy">🏅 本周达成 <b>3</b> 项成就</span>
+          <span class="chip chip-fire">🔥 连续学习 <b>0</b> 天</span>
+          <span class="chip chip-star">⭐ 日均专注 <b>0</b> 分钟</span>
+          <span class="chip chip-trophy">🏅 本周达成 <b>0</b> 项成就</span>
         </div>
       </div>
       <div class="parent-score-ring">
@@ -424,12 +456,12 @@
             <div class="donut-label"><b id="doneDonutPct">86%</b><span>本周任务</span></div>
           </div>
           <ul class="rate-list">
-            <li><span>语文</span><div class="mini-bar"><i style="width:90%"></i></div><b>90%</b></li>
-            <li><span>数学</span><div class="mini-bar"><i style="width:82%"></i></div><b>82%</b></li>
-            <li><span>英语</span><div class="mini-bar"><i style="width:88%"></i></div><b>88%</b></li>
-            <li><span>历史</span><div class="mini-bar"><i style="width:84%"></i></div><b>84%</b></li>
-            <li><span>政治</span><div class="mini-bar"><i style="width:80%"></i></div><b>80%</b></li>
-            <li><span>地理</span><div class="mini-bar"><i style="width:76%"></i></div><b>76%</b></li>
+            <li><span>语文</span><div class="mini-bar"><i style="width:0%"></i></div><b>0%</b></li>
+            <li><span>数学</span><div class="mini-bar"><i style="width:0%"></i></div><b>0%</b></li>
+            <li><span>英语</span><div class="mini-bar"><i style="width:0%"></i></div><b>0%</b></li>
+            <li><span>历史</span><div class="mini-bar"><i style="width:0%"></i></div><b>0%</b></li>
+            <li><span>政治</span><div class="mini-bar"><i style="width:0%"></i></div><b>0%</b></li>
+            <li><span>地理</span><div class="mini-bar"><i style="width:0%"></i></div><b>0%</b></li>
           </ul>
         </div>
       </div>
@@ -453,7 +485,7 @@
             <option>历史</option><option>政治</option><option>地理</option>
             <option>长笛</option><option>乐理</option>
           </select>
-          <span class="chip chip-soft" id="contentSummary">本周 42 条记录</span>
+          <span class="chip chip-soft" id="contentSummary">本周 0 条记录</span>
         </div>
       </div>
       <div class="table-wrap">
@@ -497,7 +529,7 @@
         <ul class="dim-scores" id="dimScores"></ul>
         <div class="ai-summary">
           <span class="chip chip-online">🤖 AI 评语</span>
-          <p id="aiComment">小宇本周整体表现优秀：数学与历史进步明显，正确率稳定在 85%+；建议把英语词汇打卡时间固定在晨间，并把政治「唯物论」与地理「读图分析」作为下周重点攻克对象。</p>
+          <p id="aiComment">📭 等待第一周学习数据……集齐任务完成度、正确率、坚持度、专注度与效率数据后，这里会自动生成专属评语。</p>
         </div>
       </div>
     </div>
