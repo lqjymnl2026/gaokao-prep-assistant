@@ -63,13 +63,13 @@ const BADGES = [
 ];
 
 const PLAN = [
-  {tasks:[{s:'数学', n:'数列求和专题', m:40, d:true},{s:'英语', n:'词汇 Unit 6 · 30 词', m:20, d:true}]},
-  {tasks:[{s:'语文', n:'文言文实词 15 个', m:25, d:true},{s:'历史', n:'中国古代史·中央集权', m:40, d:true}]},
-  {tasks:[{s:'数学', n:'三角函数图像与性质', m:45, d:true},{s:'政治', n:'经济生活·价格与消费', m:20, d:true}]},
-  {tasks:[{s:'英语', n:'阅读理解 2 篇精读', m:30, d:true},{s:'地理', n:'自然地理·大气环流', m:35, d:true}]},
-  {tasks:[{s:'语文', n:'背诵《琵琶行》', m:25, d:true},{s:'数学', n:'课后练习 P87', m:45, d:true},{s:'英语', n:'Unit 6 词汇', m:20, d:true},{s:'历史', n:'近代史·列强侵华', m:40, d:false},{s:'政治', n:'哲学·唯物论基础', m:30, d:false}]},
-  {tasks:[{s:'数学', n:'周测错题重做', m:60, d:false},{s:'地理', n:'人文地理·城市化', m:40, d:false}]},
-  {tasks:[{s:'全科', n:'本周复盘 + 下周计划', m:60, d:false},{s:'英语', n:'作文积累 3 个句型', m:20, d:false}]},
+  {tasks:[{s:'数学', n:'数列求和专题', m:40, d:true},{s:'英语', n:'词汇 Unit 6 · 30 词', m:20, d:true},{s:'长笛', n:'音阶与长音练习', m:20, d:true}]},
+  {tasks:[{s:'语文', n:'文言文实词 15 个', m:25, d:true},{s:'历史', n:'中国古代史·中央集权', m:40, d:true},{s:'长笛', n:'练习曲《科勒35首》', m:30, d:true}]},
+  {tasks:[{s:'数学', n:'三角函数图像与性质', m:45, d:true},{s:'政治', n:'经济生活·价格与消费', m:20, d:true},{s:'长笛', n:'乐曲《渔舟唱晚》分段', m:20, d:false}]},
+  {tasks:[{s:'英语', n:'阅读理解 2 篇精读', m:30, d:true},{s:'地理', n:'自然地理·大气环流', m:35, d:true},{s:'长笛', n:'视唱练耳 15min', m:15, d:true}]},
+  {tasks:[{s:'语文', n:'背诵《琵琶行》', m:25, d:true},{s:'数学', n:'课后练习 P87', m:45, d:true},{s:'英语', n:'Unit 6 词汇', m:20, d:true},{s:'历史', n:'近代史·列强侵华', m:40, d:false},{s:'政治', n:'哲学·唯物论基础', m:30, d:false},{s:'长笛', n:'考前模拟吹奏', m:25, d:false}]},
+  {tasks:[{s:'数学', n:'周测错题重做', m:60, d:false},{s:'地理', n:'人文地理·城市化', m:40, d:false},{s:'长笛', n:'完整曲目合伴奏', m:30, d:false}]},
+  {tasks:[{s:'全科', n:'本周复盘 + 下周计划', m:60, d:false},{s:'英语', n:'作文积累 3 个句型', m:20, d:false},{s:'乐理', n:'乐理真题 20 题', m:20, d:false}]},
 ];
 
 const MAPS = {
@@ -79,6 +79,7 @@ const MAPS = {
     {name:'不等式',     emoji:'⚖️', pct:66},{name:'立体几何',   emoji:'🧊', pct:78},
     {name:'解析几何',   emoji:'🎯', pct:62},{name:'统计与概率', emoji:'🎲', pct:90},
     {name:'平面向量',   emoji:'➡️', pct:84},{name:'复数',       emoji:'🌀', pct:95},
+    {name:'导数压轴应用',emoji:'📉', pct:58},{name:'圆锥曲线综合',emoji:'🛰️', pct:60},
   ],
   history: [
     {name:'古代史·中央集权', emoji:'🏯', pct:78},{name:'古代史·经济文化', emoji:'🌾', pct:82},
@@ -86,6 +87,7 @@ const MAPS = {
     {name:'世界史·希腊罗马', emoji:'🏛️', pct:88},{name:'世界近代史·革命', emoji:'🗽', pct:74},
     {name:'现代史·世界大战', emoji:'🎖️', pct:80},{name:'史料实证·素养',   emoji:'📜', pct:84},
     {name:'阶段特征·时间轴', emoji:'🗓️', pct:90},{name:'论述题·答题模板', emoji:'✍️', pct:62},
+    {name:'现代史·冷战格局', emoji:'🧊', pct:66},{name:'材料题·概括分析', emoji:'📝', pct:60},
   ],
   politics: [
     {name:'商品与货币',     emoji:'💰', pct:86},{name:'价格与消费',     emoji:'🛒', pct:80},
@@ -93,6 +95,7 @@ const MAPS = {
     {name:'公民与政府',     emoji:'🏛️', pct:84},{name:'民主制度',       emoji:'🗳️', pct:78},
     {name:'文化传承',       emoji:'🎭', pct:88},{name:'唯物论与辩证法', emoji:'🔮', pct:70},
     {name:'认识论',         emoji:'🧠', pct:74},{name:'时政素材积累',   emoji:'📰', pct:82},
+    {name:'经济全球化',     emoji:'🌐', pct:68},{name:'价值与人生',     emoji:'⚖️', pct:76},
   ],
   geography: [
     {name:'地球运动',       emoji:'🌍', pct:80},{name:'大气环流',       emoji:'🌪️', pct:68},
@@ -100,14 +103,17 @@ const MAPS = {
     {name:'人口与城市',     emoji:'🏙️', pct:84},{name:'农业与工业',     emoji:'🌾', pct:78},
     {name:'交通与商业',     emoji:'🚄', pct:72},{name:'中国地理',       emoji:'🗺️', pct:86},
     {name:'世界地理',       emoji:'🌐', pct:81},{name:'读图与区位分析', emoji:'🧭', pct:58},
+    {name:'等值线判读',     emoji:'🗾', pct:62},{name:'综合题·答题规范', emoji:'📏', pct:66},
   ],
 };
 
 const QUESTS = [
   {emoji:'📖', name:'晨读打卡 · 文言文',        meta:'每天 7:00 前完成 · 语文', stars:3, done:true},
   {emoji:'🔤', name:'单词闯关 · 30 词',         meta:'限时 10 分钟 · 英语',     stars:2, done:true},
-  {emoji:'🧮', name:'数学小题限时赛',            meta:'15 题 / 20 分钟',         stars:3, done:true},
-  {emoji:'📜', name:'历史大事年表挑战',          meta:'50 个事件排序',           stars:2, done:false},
+  {emoji:'🧮', name:'数学小题限时赛',            meta:'15 题 / 15 分钟',         stars:3, done:true},
+  {emoji:'📜', name:'历史大事年表挑战',          meta:'50 个事件排序',           stars:2, done:true},
+  {emoji:'📝', name:'历史论述题限时写',          meta:'500 字 / 15 分钟',        stars:3, done:false},
+  {emoji:'🎼', name:'长笛曲目背奏打卡',          meta:'每日练笛 30 分钟',        stars:2, done:false},
   {emoji:'🏛️', name:'政治原理默写擂台',          meta:'30 个原理',               stars:1, done:false},
   {emoji:'🗺️', name:'地理图表判读挑战',          meta:'20 幅地图',               stars:2, done:false},
 ];
@@ -132,22 +138,29 @@ const PET = {
   log:'小火龙摇了摇尾巴，等你带它学习～',
 };
 
-const DAILY_Q = {
-  subject:'数学', tag:'每日一题 · 函数与导数',
-  text:'已知函数 f(x) = x³ − 3x，则 f(x) 在区间 [−2, 2] 上的最大值是？',
-  options:[{k:'A', v:'2'},{k:'B', v:'3'},{k:'C', v:'4'},{k:'D', v:'−2'}],
-  answer:'A',
-  explain:"f'(x) = 3x² − 3 = 3(x−1)(x+1)，极值点 x = ±1；计算端点与极值：f(−2) = −2，f(−1) = 2，f(1) = −2，f(2) = 2，故最大值为 2，选 A。",
-};
+const DAILY_QS = [
+  {subject:'数学', tag:'每日一题 · 导数压轴', text:'已知 f(x)=x³−3x²+a，若 f(x) 在 [0,2] 上的最大值为 5，则 a=？',
+   options:[{k:'A',v:'3'},{k:'B',v:'4'},{k:'C',v:'5'},{k:'D',v:'6'}], answer:'C',
+   explain:"f'(x)=3x(x−2)，在 [0,2] 上最大值在端点 x=0 处取得：f(0)=a=5，故选 C。"},
+  {subject:'数学', tag:'每日一题 · 数列综合', text:'等差数列 {aₙ} 中，a₁=2，a₅=14，则 a₆=？',
+   options:[{k:'A',v:'16'},{k:'B',v:'17'},{k:'C',v:'18'},{k:'D',v:'19'}], answer:'B',
+   explain:'公差 d=(14−2)/4=3，a₆=a₁+5d=2+15=17，故选 B。'},
+  {subject:'数学', tag:'每日一题 · 三角函数', text:'函数 y=2sin(2x+π/3) 的最小正周期是？',
+   options:[{k:'A',v:'π'},{k:'B',v:'2π'},{k:'C',v:'π/2'},{k:'D',v:'4π'}], answer:'A',
+   explain:'T=2π/|ω|=2π/2=π，故选 A。'},
+];
 
 const RECORDS = [
   {date:'8/14', subject:'数学', content:'三角函数图像与性质 · 习题 10 道', type:'练习', min:45, done:100, master:82},
   {date:'8/14', subject:'语文', content:'背诵《琵琶行》第 1–3 段',        type:'背诵', min:25, done:100, master:90},
   {date:'8/14', subject:'英语', content:'Unit 6 核心词汇 30 个',          type:'背诵', min:20, done:100, master:88},
   {date:'8/14', subject:'历史', content:'近代史 · 列强侵华梳理（进行中）', type:'复习', min:40, done:60,  master:65},
+  {date:'8/14', subject:'长笛', content:'音阶与长音练习（艺考）',        type:'练习', min:20, done:100, master:90},
+  {date:'8/14', subject:'长笛', content:'练习曲《科勒35首》',            type:'练习', min:30, done:80,  master:85},
   {date:'8/13', subject:'政治', content:'哲学 · 唯物论基本概念',          type:'复习', min:35, done:100, master:72},
   {date:'8/13', subject:'数学', content:'函数单调性与最值 · 限时小测',    type:'测验', min:30, done:100, master:76},
   {date:'8/13', subject:'英语', content:'阅读理解 2 篇 + 生词摘抄',       type:'练习', min:30, done:100, master:85},
+  {date:'8/13', subject:'长笛', content:'乐曲《渔舟唱晚》分段练习',       type:'练习', min:25, done:100, master:82},
   {date:'8/12', subject:'历史', content:'中国古代史 · 中央集权',          type:'练习', min:40, done:100, master:78},
   {date:'8/12', subject:'语文', content:'文言文实词 15 个 + 翻译',        type:'复习', min:30, done:100, master:86},
   {date:'8/12', subject:'地理', content:'大气环流与气候类型',             type:'复习', min:35, done:100, master:68},
@@ -155,6 +168,7 @@ const RECORDS = [
   {date:'8/11', subject:'政治', content:'经济生活 · 企业与劳动者',        type:'练习', min:30, done:100, master:76},
   {date:'8/10', subject:'英语', content:'时态专项语法填空 15 题',         type:'练习', min:25, done:100, master:83},
   {date:'8/10', subject:'地理', content:'中国地理分区 · 周测',            type:'测验', min:40, done:100, master:80},
+  {date:'8/10', subject:'乐理', content:'基础乐理章节练习 · 艺考',        type:'练习', min:20, done:100, master:88},
 ];
 
 const TIMELINE = [
@@ -208,7 +222,9 @@ const state = {
   rankXp: 5200, coins: 32, combo: 4, forest: 3, chestOpened: false,
   todayFocusMin: 86, xpGained: 135, coinsEarned: 12, bossKilled: 1, petPlays: 3, pkWins: 1,
   sound: true, music: false, title: '早读战神',
-  dungeon: { idx: 0, hp: 1000, defeated: false, log: [] },
+  dungeon: { idx: 0, hp: 1500, defeated: false, log: [] },
+  dqIdx: 0, histQIdx: 0, musicQIdx: 0,
+  musicStreak: 3, musicPunchDone: false, musicDone: {},
 };
 
 /* ============ 初始化 ============ */
@@ -242,6 +258,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderFlashcards();
   renderTimelineGame();
   renderHistoryQ();
+  renderMusicPlan();
+  renderMusicQ();
   renderTable();
   renderDims();
   renderGreet();
@@ -485,6 +503,11 @@ function bindEvents(){
   // 历史攻坚站
   $('#flashNext').addEventListener('click', () => { flashIdx = (flashIdx + 1) % FLASHCARDS.length; renderFlashcards(); sfx.click(); });
   $('#timelineReset').addEventListener('click', renderTimelineGame);
+  // 长笛艺考训练
+  $('#musicPunchBtn').addEventListener('click', musicPunch);
+  $('#musicQNext').addEventListener('click', () => { state.musicQIdx = (state.musicQIdx + 1) % MUSIC_QS.length; renderMusicQ(); sfx.click(); });
+  $('#dqNext').addEventListener('click', () => { state.dqIdx = (state.dqIdx + 1) % DAILY_QS.length; renderDailyQ(); sfx.click(); });
+  $('#histQNext').addEventListener('click', () => { state.histQIdx = (state.histQIdx + 1) % HISTORY_QS.length; renderHistoryQ(); sfx.click(); });
 
   // 初始聊天问候
   setTimeout(() => addChatMsg('bot', '你好呀，小宇！我是 AI 学伴「小智」🧠 今天想学什么、有什么困惑，都可以告诉我～'), 400);
@@ -643,26 +666,29 @@ function renderLeaderboard(){
 }
 
 function renderDailyQ(){
+  const q = DAILY_QS[state.dqIdx];
   const box = $('#dailyQuestion');
   box.innerHTML = `
-    <span class="dq-tag">${DAILY_Q.tag}</span>
-    <div class="dq-text">${DAILY_Q.text}</div>
+    <span class="dq-tag">${q.tag} · ${state.dqIdx+1}/${DAILY_QS.length}</span>
+    <div class="dq-text">${q.text}</div>
     <div class="dq-options" id="dqOptions"></div>
     <div class="dq-feedback" id="dqFeedback"></div>`;
   const opts = $('#dqOptions');
-  DAILY_Q.options.forEach(o => {
+  q.options.forEach(o => {
     const b = document.createElement('button');
     b.className = 'dq-option';
     b.textContent = `${o.k}. ${o.v}`;
     b.addEventListener('click', () => {
       $$('#dqOptions .dq-option').forEach(x=>x.disabled=true);
-      if(o.k === DAILY_Q.answer){
+      if(o.k === q.answer){
         b.classList.add('correct');
-        $('#dqFeedback').innerHTML = '🎉 回答正确！太厉害了，+20 XP 已到账。' + DAILY_Q.explain;
-        confetti();
+        $('#dqFeedback').innerHTML = '🎉 回答正确！+20 XP 已到账。' + q.explain;
+        state.xp += 20; state.xpGained += 20;
+        sfx.complete(); confetti(); renderStatic(); renderReportPreview();
       } else {
         b.classList.add('wrong');
-        $('#dqFeedback').innerHTML = '😅 差一点点～正确答案是 ' + DAILY_Q.answer + '。' + DAILY_Q.explain;
+        $('#dqFeedback').innerHTML = '😅 正确答案是 ' + q.answer + '。' + q.explain;
+        sfx.wrong();
       }
     });
     opts.appendChild(b);
@@ -1051,12 +1077,12 @@ function renderTitleWall(){
 
 /* ---------- 剧情副本 · Boss 战 ---------- */
 const DUNGEONS = [
-  {chapter:'第一章 · 数学', emoji:'🐲', name:'数列魔龙',   hp:1000, coins:20,  xp:80,  title:'数学守卫者'},
-  {chapter:'第二章 · 历史', emoji:'⏳', name:'时光吞噬者', hp:1200, coins:25,  xp:100, title:'历史守卫者'},
-  {chapter:'第三章 · 政治', emoji:'🗿', name:'规则巨像',   hp:1200, coins:25,  xp:100, title:'政治守卫者'},
-  {chapter:'第四章 · 地理', emoji:'🌪️', name:'风暴领主',   hp:1400, coins:30,  xp:120, title:'地理守卫者'},
-  {chapter:'第五章 · 英语', emoji:'🧙', name:'语法巫师',   hp:1400, coins:30,  xp:120, title:'英语守卫者'},
-  {chapter:'终章 · 高考决战', emoji:'👹', name:'高考大魔王', hp:3000, coins:100, xp:500, title:'高考王者'},
+  {chapter:'第一章 · 数学', emoji:'🐲', name:'数列魔龙',   hp:1500, coins:25,  xp:100, title:'数学守卫者'},
+  {chapter:'第二章 · 历史', emoji:'⏳', name:'时光吞噬者', hp:1800, coins:30,  xp:120, title:'历史守卫者'},
+  {chapter:'第三章 · 政治', emoji:'🗿', name:'规则巨像',   hp:1800, coins:30,  xp:120, title:'政治守卫者'},
+  {chapter:'第四章 · 地理', emoji:'🌪️', name:'风暴领主',   hp:2200, coins:40,  xp:150, title:'地理守卫者'},
+  {chapter:'第五章 · 英语', emoji:'🧙', name:'语法巫师',   hp:2200, coins:40,  xp:150, title:'英语守卫者'},
+  {chapter:'终章 · 高考决战', emoji:'👹', name:'高考大魔王', hp:5000, coins:120, xp:600, title:'高考王者'},
 ];
 function dungeonDamage(){
   const done = tasks.filter(t=>t.done).length;
@@ -1188,6 +1214,16 @@ const PK_QUESTIONS = [
   {subj:'历史', q:'第二次世界大战全面爆发的标志是？', opts:['德国突袭波兰','日本偷袭珍珠港','德国进攻苏联','诺曼底登陆'], a:0, exp:'1939年9月德国突袭波兰'},
   {subj:'英语', q:'“图书馆”的英文是？', opts:['library','museum','hospital','station'], a:0, exp:'library 图书馆'},
   {subj:'地理', q:'七大洲中面积最大的是？', opts:['亚洲','非洲','北美洲','欧洲'], a:0, exp:'亚洲面积约4400万平方公里'},
+  {subj:'数学', q:'若 2^x=8，则 x=？', opts:['2','3','4','5'], a:1, exp:'2³=8，x=3'},
+  {subj:'数学', q:'等比数列 1,2,4,8,… 的第 6 项是？', opts:['16','24','32','64'], a:2, exp:'a₆=1×2⁵=32'},
+  {subj:'语文', q:'“会当凌绝顶，一览众山小”的作者是？', opts:['杜甫','李白','王维','孟浩然'], a:0, exp:'出自杜甫《望岳》'},
+  {subj:'语文', q:'“一鼓作气”这个成语出自哪部典籍？', opts:['《左传》','《论语》','《孟子》','《史记》'], a:0, exp:'出自《左传·庄公十年》'},
+  {subj:'英语', q:'My brother ____ playing the flute very well.', opts:['is','are','am','be'], a:0, exp:'主语第三人称单数，用 is'},
+  {subj:'英语', q:'“difficult” 的反义词是？', opts:['easy','hard','tough','heavy'], a:0, exp:'difficult = 困难的，反义词 easy'},
+  {subj:'历史', q:'“贞观之治”出现在哪位皇帝在位时期？', opts:['唐太宗','唐玄宗','隋文帝','汉武帝'], a:0, exp:'唐太宗李世民开创“贞观之治”'},
+  {subj:'历史', q:'活字印刷术的发明者是？', opts:['毕昇','蔡伦','张衡','沈括'], a:0, exp:'北宋毕昇发明活字印刷术'},
+  {subj:'政治', q:'我国的根本政治制度是？', opts:['人民代表大会制度','民族区域自治制度','基层群众自治制度','多党合作制度'], a:0, exp:'人民代表大会制度是根本政治制度'},
+  {subj:'地理', q:'世界最高峰是？', opts:['珠穆朗玛峰','乔戈里峰','干城章嘉峰','洛子峰'], a:0, exp:'珠穆朗玛峰海拔约8848米'},
 ];
 const pk = { phase:'select', oppIdx:0, qs:[], qi:0, correct:0, oppScore:0 };
 function renderPK(){
@@ -1213,7 +1249,7 @@ function renderPK(){
         <div class="ps-side me"><div class="ps-num">${pk.correct}</div><div>小宇</div></div>
         <div class="ps-side"><div class="ps-num">${pk.oppScore}</div><div>${PK_OPPONENTS[pk.oppIdx].name}</div></div>
       </div>
-      <div class="pk-progress">第 ${pk.qi+1} / 5 题 · ${q.subj}</div>
+      <div class="pk-progress">第 ${pk.qi+1} / 8 题 · ${q.subj}</div>
       <div class="daily-question">
         <div class="dq-text">${q.q}</div>
         <div class="dq-options">${q.opts.map((o,i)=>`<button class="dq-option" data-i="${i}">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}</div>
@@ -1240,10 +1276,10 @@ function renderPK(){
   }
 }
 function pkStart(){
-  const pool = [...PK_QUESTIONS].sort(()=>Math.random()-.5).slice(0,5);
+  const pool = [...PK_QUESTIONS].sort(()=>Math.random()-.5).slice(0,8);
   pk.qs = pool; pk.qi = 0; pk.correct = 0;
   const opp = PK_OPPONENTS[pk.oppIdx];
-  pk.oppScore = Math.min(5, Math.max(2, Math.round(5 - opp.level*0.6 + Math.random()*1.5)));
+  pk.oppScore = Math.min(8, Math.max(3, Math.round(8 - opp.level*0.8 + Math.random()*2)));
   pk.phase = 'quiz'; renderPK(); sfx.click();
 }
 function pkAnswer(i, btn){
@@ -1315,22 +1351,32 @@ const FLASHCARDS = [
   {tag:'中国近代史', front:'五四运动',   back:'1919年 · 新民主主义革命开端'},
   {tag:'中国近代史', front:'抗日战争',   back:'1937年全面爆发 · 1945年胜利 · 全民族抗战'},
   {tag:'中国现代史', front:'改革开放',   back:'1978年十一届三中全会 · 对内改革对外开放'},
+  {tag:'世界近代史', front:'新航路开辟', back:'15世纪末 · 世界市场雏形 · 商业革命/价格革命'},
+  {tag:'世界近代史', front:'法国大革命', back:'1789年 · 攻占巴士底狱 · 《人权宣言》'},
+  {tag:'世界近代史', front:'工业革命',   back:'18世纪60年代始于英国 · 蒸汽时代'},
+  {tag:'世界现代史', front:'十月革命',   back:'1917年 · 世界上第一个社会主义国家'},
 ];
 const TIMELINE_EVENTS = [
   {name:'秦统一六国', year:-221},
+  {name:'新航路开辟', year:1492},
+  {name:'法国大革命', year:1789},
   {name:'鸦片战争爆发', year:1840},
   {name:'辛亥革命', year:1911},
   {name:'五四运动', year:1919},
   {name:'新中国成立', year:1949},
   {name:'改革开放', year:1978},
 ];
-const HISTORY_Q = {
-  tag:'历史每日一题 · 中国近代史',
-  text:'以下哪一事件标志着中国新民主主义革命的开端？',
-  options:[{k:'A', v:'鸦片战争'},{k:'B', v:'五四运动'},{k:'C', v:'辛亥革命'},{k:'D', v:'南昌起义'}],
-  answer:'B',
-  explain:'五四运动（1919年）是一次彻底的反帝反封建的爱国运动，是中国新民主主义革命的开端。',
-};
+const HISTORY_QS = [
+  {tag:'历史每日一题 · 中国近代史', text:'以下关于新文化运动的表述，正确的是？',
+   options:[{k:'A',v:'以“民主”“科学”为旗帜'},{k:'B',v:'主张全盘继承传统文化'},{k:'C',v:'首先兴起于上海'},{k:'D',v:'以胡适创办《新青年》为标志'}], answer:'A',
+   explain:'新文化运动以陈独秀创办的《新青年》为阵地，倡导民主与科学，1915 年起源于北京，故选 A。'},
+  {tag:'历史每日一题 · 世界近代史', text:'新航路开辟后，世界贸易中心由地中海沿岸转移到？',
+   options:[{k:'A',v:'大西洋沿岸'},{k:'B',v:'太平洋沿岸'},{k:'C',v:'印度洋沿岸'},{k:'D',v:'红海沿岸'}], answer:'A',
+   explain:'新航路开辟后欧洲商业重心由地中海转移到大西洋沿岸，故选 A。'},
+  {tag:'历史每日一题 · 中国现代史', text:'我国经济体制改革首先从哪个领域开始？',
+   options:[{k:'A',v:'农村'},{k:'B',v:'城市'},{k:'C',v:'国有企业'},{k:'D',v:'金融业'}], answer:'A',
+   explain:'1978 年后改革首先从农村起步，推行家庭联产承包责任制，故选 A。'},
+];
 let flashIdx = 0;
 function renderFlashcards(){
   const row = $('#flashRow'); if(!row) return;
@@ -1377,27 +1423,122 @@ function timelinePick(box, i, btn){
   }
 }
 function renderHistoryQ(){
+  const q = HISTORY_QS[state.histQIdx];
   const box = $('#historyQBox'); if(!box) return;
   box.innerHTML = `
-    <span class="dq-tag">${HISTORY_Q.tag}</span>
-    <div class="dq-text">${HISTORY_Q.text}</div>
+    <span class="dq-tag">${q.tag} · ${state.histQIdx+1}/${HISTORY_QS.length}</span>
+    <div class="dq-text">${q.text}</div>
     <div class="dq-options"></div>
     <div class="dq-feedback"></div>`;
   const opts = box.querySelector('.dq-options');
-  HISTORY_Q.options.forEach(o => {
+  q.options.forEach(o => {
     const b = document.createElement('button');
     b.className = 'dq-option';
     b.textContent = `${o.k}. ${o.v}`;
     b.addEventListener('click', () => {
       opts.querySelectorAll('.dq-option').forEach(x=>x.disabled=true);
-      if(o.k === HISTORY_Q.answer){
+      if(o.k === q.answer){
         b.classList.add('correct');
-        box.querySelector('.dq-feedback').textContent = '🎉 回答正确！+20 XP +8 学习币！' + HISTORY_Q.explain;
+        box.querySelector('.dq-feedback').textContent = '🎉 回答正确！+20 XP +8 学习币！' + q.explain;
         state.xp += 20; state.xpGained += 20; state.coins += 8; state.coinsEarned += 8;
         sfx.complete(); confetti(); renderPet(); renderStatic(); renderReportPreview();
       } else {
         b.classList.add('wrong');
-        box.querySelector('.dq-feedback').textContent = '😅 正确答案是 ' + HISTORY_Q.answer + '。' + HISTORY_Q.explain;
+        box.querySelector('.dq-feedback').textContent = '😅 正确答案是 ' + q.answer + '。' + q.explain;
+        sfx.wrong();
+      }
+    });
+    opts.appendChild(b);
+  });
+}
+
+
+/* ============ 长笛艺考训练计划 ============ */
+const MUSIC_TASKS = [
+  {name:'长音与音阶练习', min:20},
+  {name:'练习曲《科勒35首》', min:30},
+  {name:'乐曲《渔舟唱晚》分段', min:20},
+  {name:'视唱练耳', min:15},
+  {name:'乐理基础复习', min:15},
+];
+const MUSIC_EXAM_DATES = [
+  {t:'2027.09', n:'艺考报名'},
+  {t:'2027.12', n:'省统考 · 长笛'},
+  {t:'2028.03', n:'校考冲刺'},
+  {t:'2028.06', n:'高考文化课'},
+];
+const MUSIC_QS = [
+  {q:'C 大调音阶的第Ⅲ级音是？', opts:['E','D','F','G'], a:0, exp:'C 大调音阶 C-D-E-F-G-A-B，第Ⅲ级为 E。'},
+  {q:'长笛属于哪一族乐器？', opts:['木管乐器','铜管乐器','弦乐器','打击乐器'], a:0, exp:'长笛属木管族（虽现代多为金属制）。'},
+  {q:'4/4 拍中，一个全音符等于几个四分音符？', opts:['4 个','2 个','3 个','8 个'], a:0, exp:'全音符 = 4 个四分音符。'},
+  {q:'力度记号 “f” 表示？', opts:['强','弱','中强','渐强'], a:0, exp:'f（forte）= 强。'},
+  {q:'音程 C–G 是几度？', opts:['纯五度','纯四度','大三度','小六度'], a:0, exp:'C 到 G 共 5 个音级，为纯五度。'},
+  {q:'长笛记谱通常使用哪种谱号？', opts:['高音谱号','低音谱号','中音谱号','次中音谱号'], a:0, exp:'长笛以高音谱号记谱为主。'},
+];
+function renderMusicPlan(){
+  const box = $('#musicCountdown'); if(!box) return;
+  const target = new Date('2027-12-15T09:00:00+08:00');
+  const days = Math.max(0, Math.ceil((target - Date.now()) / 86400000));
+  box.textContent = days + ' 天';
+  $('#musicStreak').textContent = state.musicStreak;
+  $('#musicTimeline').innerHTML = MUSIC_EXAM_DATES.map(d=>`<li><b>${d.t}</b> ${d.n}</li>`).join('');
+  const ul = $('#musicTasks'); ul.innerHTML = '';
+  MUSIC_TASKS.forEach((t,i) => {
+    const done = !!state.musicDone[i];
+    const li = document.createElement('li');
+    li.className = 'mt-item' + (done?' done':'');
+    li.innerHTML = `<span class="mt-check ${done?'checked':''}">${done?'✓':''}</span><span class="mt-name">${t.name}</span><span class="mt-min">${t.min}min</span>`;
+    li.querySelector('.mt-check').addEventListener('click', () => toggleMusicTask(i));
+    ul.appendChild(li);
+  });
+  const allDone = MUSIC_TASKS.every((_,i)=>state.musicDone[i]);
+  const btn = $('#musicPunchBtn');
+  btn.disabled = state.musicPunchDone;
+  btn.textContent = state.musicPunchDone ? '✅ 今日已打卡' : '🎶 完成练笛打卡（+15 学习币）';
+  if(state.musicPunchDone){ $('#musicPunchMsg').textContent = '🎉 今日练笛打卡完成，艺考路上越来越稳！'; }
+  else if(allDone){ $('#musicPunchMsg').textContent = '🏆 清单已全部完成，点击打卡领取奖励！'; }
+  else { $('#musicPunchMsg').textContent = ''; }
+}
+function toggleMusicTask(i){
+  state.musicDone[i] = !state.musicDone[i];
+  if(state.musicDone[i]){
+    state.coins += 5; state.coinsEarned += 5;
+    sfx.click(); renderPet(); renderReportPreview();
+  }
+  renderMusicPlan();
+}
+function musicPunch(){
+  if(state.musicPunchDone) return;
+  state.musicPunchDone = true;
+  state.musicStreak++;
+  state.coins += 15; state.coinsEarned += 15;
+  sfx.victory(); confetti(); renderPet(); renderReportPreview();
+  renderMusicPlan();
+}
+function renderMusicQ(){
+  const q = MUSIC_QS[state.musicQIdx];
+  const box = $('#musicQBox'); if(!box) return;
+  box.innerHTML = `
+    <span class="dq-tag">乐理小测 · ${state.musicQIdx+1}/${MUSIC_QS.length}</span>
+    <div class="dq-text">${q.q}</div>
+    <div class="dq-options"></div>
+    <div class="dq-feedback"></div>`;
+  const opts = box.querySelector('.dq-options');
+  q.opts.forEach((o,i) => {
+    const b = document.createElement('button');
+    b.className = 'dq-option';
+    b.textContent = `${String.fromCharCode(65+i)}. ${o}`;
+    b.addEventListener('click', () => {
+      opts.querySelectorAll('.dq-option').forEach(x=>x.disabled=true);
+      if(i === q.a){
+        b.classList.add('correct');
+        box.querySelector('.dq-feedback').textContent = '🎉 乐理全对！+8 学习币。' + q.exp;
+        state.coins += 8; state.coinsEarned += 8;
+        sfx.complete(); confetti(); renderPet(); renderReportPreview();
+      } else {
+        b.classList.add('wrong');
+        opts.querySelectorAll('.dq-option')[q.a].classList.add('correct');
+        box.querySelector('.dq-feedback').textContent = '😅 正确答案是 ' + String.fromCharCode(65+q.a) + '。' + q.exp;
         sfx.wrong();
       }
     });
