@@ -557,3 +557,35 @@ body{
 .music-punch-msg{font-size:13px;color:var(--ink-2);margin-top:8px;min-height:20px;font-weight:600}
 .tag.subj-长笛{background:#f5f3ff;color:#7c3aed}
 .tag.subj-乐理{background:#fdf4ff;color:#c026d3}
+
+/* ============ 校考曲目库 / 乐理真题卷 / 错题魔王 ============ */
+.rep-filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.rep-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(max-width:720px){.rep-grid{grid-template-columns:1fr}}
+.rep-card{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#fafbff;transition:.2s;display:flex;flex-direction:column;gap:6px}
+.rep-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.rep-card .rp-name{font-weight:700;font-size:14.5px}
+.rep-card .rp-composer{font-size:12.5px;color:var(--ink-3)}
+.rep-card .rp-meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-2)}
+.rep-card .rp-stars{letter-spacing:1px;font-size:13px}
+.rep-card .rp-progress{height:7px;border-radius:99px;background:#eceefb;overflow:hidden}
+.rep-card .rp-progress i{display:block;height:100%;background:var(--grad);border-radius:99px;width:0;transition:width .4s}
+.rep-card .rp-practice{display:flex;align-items:center;justify-content:space-between;margin-top:2px}
+.rep-card .rp-count{font-size:12px;color:var(--ink-3)}
+.rep-card .rp-btn{border:0;background:var(--grad);color:#fff;border-radius:9px;padding:6px 12px;font-size:12.5px;font-weight:700;cursor:pointer;transition:.2s}
+.rep-card .rp-btn:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(99,102,241,.3)}
+.rep-card .rp-btn.done{background:#e2e5f5;color:var(--ink-3);cursor:default}
+
+.paper-intro{text-align:center;padding:10px 0}
+.paper-intro .pi-title{font-size:18px;font-weight:800;margin-bottom:6px}
+.paper-intro .pi-sub{font-size:13.5px;color:var(--ink-2);margin-bottom:14px}
+.paper-score{display:flex;align-items:center;justify-content:center;gap:16px;margin:8px 0}
+.paper-score .ps-box{text-align:center;background:#f7f8ff;border-radius:14px;padding:12px 18px}
+.paper-score .ps-box b{font-size:30px;display:block}
+.paper-grade{text-align:center;font-size:18px;font-weight:800;margin:6px 0}
+.paper-grade.good{color:#059669}.paper-grade.mid{color:#d97706}.paper-grade.bad{color:#dc2626}
+.paper-review{margin-top:12px}
+.paper-review .pr-item{font-size:13px;padding:6px 0;border-bottom:1px dashed var(--line);color:var(--ink-2)}
+.paper-review .pr-item b.ok{color:var(--green)}.paper-review .pr-item b.no{color:var(--red)}
+
+.wrong-boss{border-color:#c4b5fd;background:linear-gradient(135deg,#f5f3ff,#fdf4ff)}
