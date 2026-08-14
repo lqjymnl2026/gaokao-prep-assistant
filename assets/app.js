@@ -188,6 +188,7 @@ const state = {
   repFilter: 'all', repDone: {},
   wrongBank: [], wrongMax: 0,
   paper: { phase:'intro', qs:[], qi:0, correct:0, review:[] },
+  paperSrc: 'real', artReminder: false, scaleIdx: 0, sheets: [], playingDemo: null,
 };
 
 /* 日期集中配置（高考 / 省统考 年份统一在这里改） */
@@ -232,6 +233,10 @@ document.addEventListener('DOMContentLoaded', () => {
   renderRepertoire();
   renderTheoryPaper();
   renderWrongBoss();
+  renderArtCalendar();
+  renderStaff();
+  loadSheets();
+  renderSheets();
   renderTable();
   renderDims();
   renderGreet();
@@ -480,6 +485,29 @@ function bindEvents(){
   // 历史攻坚站
   $('#flashNext').addEventListener('click', () => { flashIdx = (flashIdx + 1) % FLASHCARDS.length; renderFlashcards(); sfx.click(); });
   $('#timelineReset').addEventListener('click', renderTimelineGame);
+  // 艺考日历提醒
+  $('#artReminderBtn').addEventListener('click', toggleArtReminder);
+  // 五线谱音阶切换
+  $('#scaleTabs').addEventListener('click', e => {
+    const btn = e.target.closest('.mini-tab');
+    if(!btn) return;
+    $$('#scaleTabs .mini-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    state.scaleIdx = +btn.dataset.scale;
+    renderStaff(); sfx.click();
+  });
+  // 歌谱上传
+  $('#sheetFile').addEventListener('change', handleSheetUpload);
+  // 乐理卷：真题卷 / 错题卷
+  $('#paperTabs').addEventListener('click', e => {
+    const btn = e.target.closest('.mini-tab');
+    if(!btn) return;
+    $$('#paperTabs .mini-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    state.paperSrc = btn.dataset.src;
+    state.paper.phase = 'intro';
+    renderTheoryPaper(); sfx.click();
+  });
   // 校考曲目库筛选
   $('#repFilters').addEventListener('click', e => {
     const btn = e.target.closest('.mini-tab');
@@ -1669,8 +1697,12 @@ function renderRepertoire(){
       <div class="rp-progress"><i style="width:${Math.min(100, n/3*100)}%"></i></div>
       <div class="rp-practice">
         <span class="rp-count">练习 ${n}/3 次 ${done?'✓ 达标':''}</span>
-        <button class="rp-btn ${done?'done':''}" data-name="${r.name}">${done?'✅ 已完成':'🎶 练习 +1'}</button>
+        <span class="rp-btns">
+          <button class="rp-demo" title="试听示范">▶</button>
+          <button class="rp-btn ${done?'done':''}" data-name="${r.name}">${done?'✅ 已完成':'🎶 练习 +1'}</button>
+        </span>
       </div>`;
+    div.querySelector('.rp-demo').addEventListener('click', e => { e.stopPropagation(); playDemo(r.cat, e.currentTarget); });
     if(!done) div.querySelector('.rp-btn').addEventListener('click', () => practiceRepertoire(r));
     grid.appendChild(div);
   });
@@ -1721,7 +1753,16 @@ function renderTheoryPaper(){
   }
 }
 function paperStart(){
-  state.paper.qs = [...THEORY_QS].sort(()=>Math.random()-.5).slice(0,10);
+  if(state.paperSrc === 'wrong'){
+    const pool = state.wrongBank.filter(w=>w.subj==='乐理');
+    if(!pool.length){
+      $('#theoryPaper').innerHTML = '<p style="text-align:center;color:var(--ink-2);padding:18px">📭 还没有乐理错题！先做「真题卷」或「乐理小测」，答错的题会自动进入错题卷。</p>';
+      return;
+    }
+    state.paper.qs = [...pool].slice(0,10);
+  } else {
+    state.paper.qs = [...THEORY_QS].sort(()=>Math.random()-.5).slice(0,10);
+  }
   state.paper.qi = 0; state.paper.correct = 0; state.paper.review = [];
   state.paper.phase = 'quiz'; renderTheoryPaper(); sfx.click();
 }
@@ -1732,6 +1773,10 @@ function paperAnswer(i, btn){
   state.paper.review.push({q:q.q, ok, answer:q.opts[q.a]});
   if(ok){
     btn.classList.add('correct'); state.paper.correct++;
+    if(state.paperSrc === 'wrong'){
+      state.wrongBank = state.wrongBank.filter(w => !(w.subj===q.subj && w.text===q.text));
+      renderWrongBoss();
+    }
     sfx.complete();
   } else {
     btn.classList.add('wrong');
@@ -1746,7 +1791,207 @@ function paperAnswer(i, btn){
       state.paper.phase = 'result';
       state.coins += state.paper.correct*3; state.coinsEarned += state.paper.correct*3;
       if(state.paper.correct >= 7) sfx.victory();
+      if(state.paperSrc === 'wrong' && !state.wrongBank.filter(w=>w.subj==='乐理').length) sfx.victory();
     }
     renderTheoryPaper(); renderPet(); renderReportPreview(); renderStatic();
   }, 1300);
+}
+
+/* ============ 艺考日历 / 五线谱 / 我的歌谱 / 曲目示范音频 ============ */
+const ART_DATES = [
+  {date:'2027-09-10', name:'艺考报名开始'},
+  {date:'2027-12-15', name:'省统考 · 长笛'},
+  {date:'2028-01-05', name:'统考成绩公布'},
+  {date:'2028-02-20', name:'校考开始'},
+  {date:'2028-03-31', name:'校考结束'},
+  {date:'2028-06-07', name:'高考文化课'},
+];
+const NOTE_FREQ = {C4:261.63,D4:293.66,E4:329.63,F4:349.23,G4:392,A4:440,B4:493.88,C5:523.25,D5:587.33,E5:659.25,F5:698.46,'F#5':739.99,G5:783.99,'Bb4':466.16};
+const SEMI = {C4:-4,D4:-2,E4:0,F4:1,G4:3,A4:5,B4:7,C5:8,D5:10,E5:12,F5:13,'F#5':14,G5:15,'Bb4':6};
+const SCALES = [
+  {name:'C 大调', notes:[['C4','左1'],['D4','左2'],['E4','左3'],['F4','左4'],['G4','左5'],['A4','右1'],['B4','右2'],['C5','右3']]},
+  {name:'G 大调', notes:[['G4','左1'],['A4','左2'],['B4','左3'],['C5','左4'],['D5','左5'],['E5','右1'],['F#5','右2'],['G5','右3']]},
+  {name:'F 大调', notes:[['F4','左1'],['G4','左2'],['A4','左3'],['Bb4','左4'],['C5','左5'],['D5','右1'],['E5','右2'],['F5','右3']]},
+];
+const DEMO_PHRASES = {
+  '协奏曲':   [[659.25,0.3],[783.99,0.3],[880,0.3],[1046.5,0.5],[880,0.3],[783.99,0.6]],
+  '奏鸣曲':   [[587.33,0.4],[659.25,0.4],[698.46,0.4],[783.99,0.6],[698.46,0.4],[587.33,0.8]],
+  '中国作品': [[523.25,0.4],[587.33,0.4],[659.25,0.6],[587.33,0.4],[523.25,0.9]],
+  '练习曲':   [[783.99,0.2],[880,0.2],[783.99,0.2],[880,0.2],[1046.5,0.3],[880,0.3],[783.99,0.6]],
+};
+let demoNodes = [];
+function playDemo(cat, btn){
+  if(state.playingDemo === btn){ stopDemo(); return; }
+  stopDemo();
+  const ac = ensureAudio(); if(!ac) return;
+  const phrase = DEMO_PHRASES[cat] || DEMO_PHRASES['协奏曲'];
+  let t = ac.currentTime + 0.05;
+  const nodes = [];
+  phrase.forEach(([f,d]) => {
+    nodes.push(...fluteNote(f, d*0.9, t - ac.currentTime));
+    t += d;
+  });
+  demoNodes = nodes;
+  state.playingDemo = btn;
+  btn.classList.add('playing');
+  btn.textContent = '⏹';
+  sfx.click();
+  setTimeout(() => {
+    if(state.playingDemo === btn){
+      demoNodes.forEach(n=>{try{n.stop()}catch(e){}});
+      demoNodes = [];
+      state.playingDemo = null;
+      btn.classList.remove('playing');
+      btn.textContent = '▶';
+    }
+  }, (t - ac.currentTime)*1000 + 300);
+}
+function stopDemo(){
+  if(state.playingDemo){
+    state.playingDemo.classList.remove('playing');
+    state.playingDemo.textContent = '▶';
+    state.playingDemo = null;
+  }
+  demoNodes.forEach(n=>{try{n.stop()}catch(e){}});
+  demoNodes = [];
+}
+
+/* ---------- 艺考日历 ---------- */
+function renderArtCalendar(){
+  const head = $('#artCalHead'); if(!head) return;
+  const now = new Date();
+  const y = now.getFullYear(), m = now.getMonth();
+  const first = new Date(y,m,1);
+  const startOffset = (first.getDay()+6)%7;
+  const daysInMonth = new Date(y, m+1, 0).getDate();
+  head.textContent = `${y}年${m+1}月`;
+  const grid = $('#artCalDays'); grid.innerHTML = '';
+  for(let i=0;i<startOffset;i++){ grid.appendChild(Object.assign(document.createElement('div'),{className:'cal-day other'})); }
+  for(let day=1; day<=daysInMonth; day++){
+    const d = document.createElement('div');
+    d.className = 'cal-day' + (day===now.getDate()?' today':'');
+    const dateStr = `${y}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    const ev = ART_DATES.find(e=>e.date===dateStr);
+    d.textContent = day;
+    if(ev){ d.classList.add('dot'); d.title = ev.name; d.innerHTML = day + '<span class="cd-dot">🎯</span>'; }
+    grid.appendChild(d);
+  }
+  const next = ART_DATES.map(e=>({...e, t:new Date(e.date+'T09:00:00+08:00')})).filter(e=>e.t>now).sort((a,b)=>a.t-b.t)[0];
+  if(next){
+    const days = Math.max(0, Math.ceil((next.t-now)/86400000));
+    $('#artNext').innerHTML = `<b>${next.name}</b><span>${next.date} · 还有 ${days} 天</span>`;
+  } else {
+    $('#artNext').innerHTML = '🎉 所有节点已完成，等待高考！';
+  }
+  $('#artMilestones').innerHTML = ART_DATES.map(e=>`<li><b>${e.date}</b> ${e.name}</li>`).join('');
+  const msg = $('#artReminderMsg');
+  if(msg) msg.textContent = state.artReminder ? '🔔 日历提醒已开启（打开网站时会提醒最近的艺考节点）' : '💡 开启后，打开网站会提醒你最近的艺考节点';
+}
+function toggleArtReminder(){
+  state.artReminder = !state.artReminder;
+  const btn = $('#artReminderBtn');
+  btn.textContent = state.artReminder ? '✅ 提醒已开启' : '🔔 开启日历提醒';
+  btn.classList.toggle('btn-primary', state.artReminder);
+  btn.classList.toggle('btn-ghost', !state.artReminder);
+  renderArtCalendar();
+  if(state.artReminder && typeof Notification !== 'undefined' && Notification.permission === 'default'){
+    try{ Notification.requestPermission(); }catch(e){}
+  }
+  sfx.click();
+}
+
+/* ---------- 长笛五线谱 ---------- */
+function renderStaff(){
+  const svg = $('#staffSvg'); if(!svg) return;
+  svg.innerHTML = '';
+  const W = 760, H = 230;
+  const lineY = [40,54,68,82,96];
+  lineY.forEach(y => svg.append(svgEl('line', {x1:70, y1:y, x2:W-30, y2:y, stroke:'#444', 'stroke-width':1.6})));
+  const clef = svgEl('text', {x:26, y:92, 'font-size':66, fill:'#444', 'font-family':'serif'});
+  clef.textContent = '𝄞';
+  svg.append(clef);
+  const notes = SCALES[state.scaleIdx].notes;
+  const step = (W-140-90)/(notes.length-1);
+  notes.forEach(([nm, finger], i) => {
+    const semi = SEMI[nm];
+    const y = 96 - (semi/2)*14;
+    const x = 100 + i*step;
+    if(semi < 0){ svg.append(svgEl('line', {x1:x-9, y1:y, x2:x+9, y2:y, stroke:'#444', 'stroke-width':1.4})); }
+    if(semi > 15){ svg.append(svgEl('line', {x1:x-9, y1:y, x2:x+9, y2:y, stroke:'#444', 'stroke-width':1.4})); }
+    svg.append(svgEl('ellipse', {cx:x, cy:y, rx:7.5, ry:5, fill:'#111', transform:`rotate(-18 ${x} ${y})`}));
+    svg.append(svgEl('line', {x1:x+7, y1:y, x2:x+7, y2:y-34, stroke:'#111', 'stroke-width':1.8}));
+    const ft = svgEl('text', {x:x, y:y-42, 'text-anchor':'middle', 'font-size':12, fill:'#8b5cf6', 'font-weight':700, 'font-family':'inherit'});
+    ft.textContent = finger;
+    svg.append(ft);
+    const nt = svgEl('text', {x:x, y:H-16, 'text-anchor':'middle', 'font-size':14, fill:'#333', 'font-weight':700, 'font-family':'inherit'});
+    nt.textContent = nm;
+    svg.append(nt);
+    const hit = svgEl('circle', {cx:x, cy:y, r:17, fill:'transparent', style:'cursor:pointer'});
+    hit.addEventListener('click', () => playStaffNote(nm));
+    svg.append(hit);
+  });
+  const tn = svgEl('text', {x:W/2, y:20, 'text-anchor':'middle', 'font-size':14, fill:'#8b91ad', 'font-family':'inherit'});
+  tn.textContent = SCALES[state.scaleIdx].name + ' 音阶 · 点击音符试听';
+  svg.append(tn);
+}
+function playStaffNote(nm){
+  const f = NOTE_FREQ[nm]; if(!f) return;
+  stopDemo();
+  const ac = ensureAudio(); if(!ac) return;
+  const t0 = ac.currentTime + 0.05;
+  demoNodes.push(...fluteNote(f, 0.85, t0 - ac.currentTime));
+  sfx.click();
+  setTimeout(()=>{ demoNodes = []; }, 1500);
+}
+
+/* ---------- 我的歌谱 ---------- */
+const SHEETS_KEY = 'gaokaoSheets';
+function loadSheets(){
+  try{ state.sheets = JSON.parse(localStorage.getItem(SHEETS_KEY) || '[]'); }
+  catch(e){ state.sheets = []; }
+}
+function saveSheets(){
+  try{ localStorage.setItem(SHEETS_KEY, JSON.stringify(state.sheets)); }
+  catch(e){ $('#sheetCount').textContent = '⚠️ 空间不足'; }
+}
+function renderSheets(){
+  const grid = $('#sheetGrid'); if(!grid) return;
+  $('#sheetCount').textContent = `${state.sheets.length} 张`;
+  if(!state.sheets.length){
+    grid.innerHTML = '<div class="sheet-empty">📭 还没有歌谱，上传孩子的长笛曲目谱子吧！</div>';
+    return;
+  }
+  grid.innerHTML = '';
+  state.sheets.forEach((s,i) => {
+    const div = document.createElement('div');
+    div.className = 'sheet-card';
+    div.innerHTML = `<img src="${s.data}" alt="${s.name}"><div class="sheet-name">${s.name}</div><button class="sheet-del" title="删除">✕</button>`;
+    div.querySelector('img').addEventListener('click', () => openSheetViewer(s));
+    div.querySelector('.sheet-del').addEventListener('click', () => { state.sheets.splice(i,1); saveSheets(); renderSheets(); sfx.click(); });
+    grid.appendChild(div);
+  });
+}
+function openSheetViewer(s){
+  const mask = document.createElement('div');
+  mask.className = 'modal-mask sheet-viewer';
+  mask.style.zIndex = '300';
+  mask.innerHTML = `<div class="sheet-viewer-box"><img src="${s.data}" alt="${s.name}"><div class="sheet-viewer-name">${s.name}</div><button class="modal-close">✕</button></div>`;
+  mask.querySelector('.modal-close').addEventListener('click', () => mask.remove());
+  mask.addEventListener('click', e => { if(e.target === mask) mask.remove(); });
+  document.body.appendChild(mask);
+}
+function handleSheetUpload(e){
+  const file = e.target.files && e.target.files[0];
+  if(!file) return;
+  if(file.size > 4*1024*1024){
+    $('#sheetCount').textContent = '⚠️ 图片过大（>4MB）';
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = ev => {
+    state.sheets.push({name:file.name, data:ev.target.result, date:Date.now()});
+    saveSheets(); renderSheets(); sfx.complete(); confetti();
+  };
+  reader.readAsDataURL(file);
+  e.target.value = '';
 }
