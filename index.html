@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="assets/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
 </head>
-<body>
+<body data-page="student">
 <div class="bg-blobs" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i></div>
 
 <!-- ============ 顶部导航 ============ -->
@@ -21,16 +21,11 @@
       </div>
     </div>
 
-    <div class="role-switch" id="roleSwitch">
-      <button class="role-btn active" data-role="student" aria-label="学生模式">🧑‍🎓 学生模式</button>
-      <button class="role-btn" data-role="parent" aria-label="家长模式">👨‍👩‍👦 家长模式</button>
-    </div>
-
     <div class="top-right">
       <div class="date-chip" id="todayChip">📅 --</div>
       <button class="sound-toggle" id="soundToggle" title="音效开关">🔊</button>
       <button class="sound-toggle" id="musicToggle" title="长笛背景音乐" style="color:#8b5cf6">🎵</button>
-      <div class="avatar" id="avatarBox" title="小宇">宇</div>
+      <div class="avatar" id="avatarBox" title="李斯特">李</div>
     </div>
   </div>
 </header>
@@ -51,7 +46,7 @@
   <section class="view active" id="view-student-home">
     <div class="hero card">
       <div class="hero-text">
-        <div class="hero-greet" id="greetText">👋 晚上好，小宇！</div>
+        <div class="hero-greet" id="greetText">👋 晚上好，李斯特！</div>
         <h1>今天也要<span class="grad-text">元气满满</span>地学习哦 ✨</h1>
         <p>距 2028 高考还有 <b id="countdown">--</b> 天，把每一天都变成进步的一天！</p>
         <div class="hero-chips">
@@ -454,172 +449,7 @@
   </section>
 </main>
 
-<!-- ============ 家长端 ============ -->
-<main class="app parent-app" id="parentApp" hidden>
-  <nav class="tabs" id="parentTabs">
-    <button class="tab active" data-tab="overview">📊 学习总览</button>
-    <button class="tab" data-tab="content">📚 学习内容</button>
-    <button class="tab" data-tab="report">🏅 评分报告</button>
-    <button class="tab" data-tab="settings">⚙️ 家长设置</button>
-  </nav>
 
-  <!-- 家长 · 总览 -->
-  <section class="view active" id="view-parent-overview">
-    <div class="hero card parent-hero">
-      <div class="hero-text">
-        <div class="hero-greet">👨‍👩‍👦 家长您好，这是 <b>小宇</b> 的本周学习概览</div>
-        <h1>学习状态<span class="grad-text">稳中有升</span> 📈</h1>
-        <p>本周综合评分 <b id="ovScore">0</b> 分，较上周 —；有效学习 <b>0</b> 小时，计划完成率 <b>0%</b>。</p>
-        <div class="hero-chips">
-          <span class="chip chip-fire">🔥 连续学习 <b>0</b> 天</span>
-          <span class="chip chip-star">⭐ 日均专注 <b>0</b> 分钟</span>
-          <span class="chip chip-trophy">🏅 本周达成 <b>0</b> 项成就</span>
-        </div>
-      </div>
-      <div class="parent-score-ring">
-        <div class="score-ring" id="scoreRing">
-          <div class="score-ring-inner"><b id="scoreRingNum">86</b><span>综合评分</span></div>
-        </div>
-        <div class="score-trend"><span class="up">▲ 4</span> 较上周</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-head"><h3>📈 近 7 天学习时长（分钟）</h3><span class="chip chip-soft">含专注 + 练习</span></div>
-      <div class="chart-wrap"><svg id="durationChart" viewBox="0 0 720 240" preserveAspectRatio="xMidYMid meet"></svg></div>
-    </div>
-
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-head"><h3>🥧 学科投入占比</h3></div>
-        <div class="pie-wrap">
-          <svg id="pieChart" viewBox="0 0 200 200"></svg>
-          <div class="pie-legend" id="pieLegend"></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h3>🎯 任务完成率</h3></div>
-        <div class="ring-row">
-          <div class="donut-box">
-            <svg id="doneDonut" viewBox="0 0 120 120"></svg>
-            <div class="donut-label"><b id="doneDonutPct">86%</b><span>本周任务</span></div>
-          </div>
-          <ul class="rate-list">
-            <li><span>语文</span><div class="mini-bar"><i style="width:0%"></i></div><b>0%</b></li>
-            <li><span>数学</span><div class="mini-bar"><i style="width:0%"></i></div><b>0%</b></li>
-            <li><span>英语</span><div class="mini-bar"><i style="width:0%"></i></div><b>0%</b></li>
-            <li><span>历史</span><div class="mini-bar"><i style="width:0%"></i></div><b>0%</b></li>
-            <li><span>政治</span><div class="mini-bar"><i style="width:0%"></i></div><b>0%</b></li>
-            <li><span>地理</span><div class="mini-bar"><i style="width:0%"></i></div><b>0%</b></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-head"><h3>🕐 今日学习动态</h3><button class="link-btn" id="goContentBtn">查看全部内容 →</button></div>
-      <ul class="timeline" id="timeline"></ul>
-    </div>
-  </section>
-
-  <!-- 家长 · 学习内容 -->
-  <section class="view" id="view-parent-content">
-    <div class="card">
-      <div class="card-head">
-        <h3>📚 学习内容明细</h3>
-        <div class="filter-row">
-          <select id="contentFilter" aria-label="筛选科目">
-            <option value="all">全部科目</option>
-            <option>语文</option><option>数学</option><option>英语</option>
-            <option>历史</option><option>政治</option><option>地理</option>
-            <option>长笛</option><option>乐理</option>
-          </select>
-          <span class="chip chip-soft" id="contentSummary">本周 0 条记录</span>
-        </div>
-      </div>
-      <div class="table-wrap">
-        <table class="data-table">
-          <thead>
-            <tr><th>日期</th><th>科目</th><th>学习内容</th><th>类型</th><th>时长</th><th>完成度</th><th>掌握度</th></tr>
-          </thead>
-          <tbody id="contentTable"></tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- 家长 · 评分报告 -->
-  <section class="view" id="view-parent-report">
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-head"><h3>🧭 五维能力雷达</h3><span class="chip chip-soft">本周</span></div>
-        <div class="chart-wrap"><svg id="radarChart" viewBox="0 0 360 300"></svg></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h3>📏 评分模型说明</h3></div>
-        <div class="score-model">
-          <div class="model-row"><span>✅ 任务完成度</span><div class="mini-bar"><i style="width:30%"></i></div><b>30%</b></div>
-          <div class="model-row"><span>🎯 练习正确率</span><div class="mini-bar"><i style="width:25%"></i></div><b>25%</b></div>
-          <div class="model-row"><span>🔥 学习坚持度</span><div class="mini-bar"><i style="width:20%"></i></div><b>20%</b></div>
-          <div class="model-row"><span>⏱️ 专注度</span><div class="mini-bar"><i style="width:15%"></i></div><b>15%</b></div>
-          <div class="model-row"><span>⚡ 学习效率</span><div class="mini-bar"><i style="width:10%"></i></div><b>10%</b></div>
-        </div>
-        <p class="model-note">综合评分 = 完成度×30% + 正确率×25% + 坚持度×20% + 专注度×15% + 效率×10%，满分 100 分，每日 24:00 自动结算。</p>
-      </div>
-    </div>
-
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-head"><h3>📊 近 8 周评分趋势</h3></div>
-        <div class="chart-wrap"><svg id="trendChart" viewBox="0 0 720 240" preserveAspectRatio="xMidYMid meet"></svg></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h3>🎓 本周维度得分</h3></div>
-        <ul class="dim-scores" id="dimScores"></ul>
-        <div class="ai-summary">
-          <span class="chip chip-online">🤖 AI 评语</span>
-          <p id="aiComment">📭 等待第一周学习数据……集齐任务完成度、正确率、坚持度、专注度与效率数据后，这里会自动生成专属评语。</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 家长 · 设置 -->
-  <section class="view" id="view-parent-settings">
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-head"><h3>🎯 学习目标</h3></div>
-        <div class="setting-row">
-          <div><b>每日专注目标</b><small>建议 100–180 分钟</small></div>
-          <input type="range" min="60" max="240" step="10" value="120" id="goalRange">
-          <span class="range-val" id="goalRangeVal">120 分钟</span>
-        </div>
-        <div class="setting-row">
-          <div><b>每周任务数</b><small>建议 25–35 个</small></div>
-          <input type="range" min="15" max="45" step="1" value="30" id="taskRange">
-          <span class="range-val" id="taskRangeVal">30 个</span>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h3>🔔 提醒与通知</h3></div>
-        <label class="switch-row"><span><b>每日学习报告</b><small>每晚 21:30 推送今日总结</small></span><input type="checkbox" checked><i></i></label>
-        <label class="switch-row"><span><b>任务超时提醒</b><small>未完成任务时提醒孩子</small></span><input type="checkbox" checked><i></i></label>
-        <label class="switch-row"><span><b>每周家长周报</b><small>每周日晚发送完整报告</small></span><input type="checkbox" checked><i></i></label>
-        <label class="switch-row"><span><b>成就庆祝通知</b><small>孩子达成成就时同步告知</small></span><input type="checkbox"><i></i></label>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-head"><h3>💡 给家长的沟通建议</h3></div>
-      <ul class="tips">
-        <li>❤️ 少问「今天学了什么」，多问「今天哪个知识点最有意思」，激发表达欲。</li>
-        <li>🎮 用「闯关 / 积分 / 徽章」作为激励而非施压，评分是参考不是评判。</li>
-        <li>📵 把手机放在客厅充电，和孩子约定「学习时段全家安静」。</li>
-        <li>🤝 每周和孩子一起看 10 分钟周报，共同制定下周 1 个小目标。</li>
-      </ul>
-    </div>
-    <p class="footnote">🚀 高考备考助手 · 原型演示版（数据均为示例）｜为 2028 高考 · 高二冲刺设计</p>
-  </section>
-</main>
 
 <!-- ============ 手机端底部导航 ============ -->
 <nav class="bottom-nav" id="studentBottomNav">
@@ -631,12 +461,7 @@
   <button class="bn-tab" data-tab="art"><span class="bn-ico">🎼</span><span>艺考</span></button>
   <button class="bn-tab" data-tab="ai"><span class="bn-ico">🤖</span><span>AI</span></button>
 </nav>
-<nav class="bottom-nav" id="parentBottomNav" hidden>
-  <button class="bn-tab active" data-tab="overview"><span class="bn-ico">📊</span><span>总览</span></button>
-  <button class="bn-tab" data-tab="content"><span class="bn-ico">📚</span><span>内容</span></button>
-  <button class="bn-tab" data-tab="report"><span class="bn-ico">🏅</span><span>报告</span></button>
-  <button class="bn-tab" data-tab="settings"><span class="bn-ico">⚙️</span><span>设置</span></button>
-</nav>
+
 
 <!-- ============ 今日战报弹窗 ============ -->
 <div class="modal-mask" id="reportModal" hidden>
