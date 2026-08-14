@@ -533,3 +533,27 @@ body{
 .tl-item.wrong{animation:shakeX .4s ease;border-color:var(--red)}
 @keyframes shakeX{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 .timeline-result{font-size:13px;color:var(--ink-2);margin:10px 0;min-height:22px;font-weight:600}
+
+/* ============ 长笛艺考训练计划 ============ */
+.music-card{border:1px solid #ddd6fe;background:linear-gradient(135deg,#f5f3ff,#fdf4ff)}
+.music-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+@media(max-width:1024px){.music-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.music-grid{grid-template-columns:1fr}}
+.music-countdown{font-size:34px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.2}
+.music-goal{font-size:13px;color:var(--ink-2);margin-top:4px}
+.music-streak{font-size:13px;color:var(--ink-2);margin-top:8px;background:#fff;border-radius:10px;padding:8px 10px}
+.music-streak b{color:#f97316}
+.music-timeline{list-style:none;margin-top:10px;position:relative;padding-left:18px}
+.music-timeline li{position:relative;font-size:12.5px;color:var(--ink-2);padding:4px 0}
+.music-timeline li::before{content:"";position:absolute;left:-14px;top:10px;width:8px;height:8px;border-radius:50%;background:var(--grad)}
+.music-tasks{list-style:none;margin-bottom:12px}
+.music-tasks .mt-item{display:flex;align-items:center;gap:10px;padding:9px 8px;border-radius:11px;cursor:pointer;transition:.15s}
+.music-tasks .mt-item:hover{background:#fff}
+.music-tasks .mt-check{width:20px;height:20px;border-radius:6px;border:2px solid #c9cde8;display:grid;place-items:center;color:#fff;font-size:12px;flex:none;background:#fff;transition:.2s}
+.music-tasks .mt-check.checked{background:var(--grad);border-color:transparent}
+.music-tasks .mt-name{font-size:13.5px;font-weight:600}
+.music-tasks .mt-min{font-size:11.5px;color:var(--ink-3);margin-left:auto}
+.music-tasks .mt-item.done .mt-name{text-decoration:line-through;color:var(--ink-3)}
+.music-punch-msg{font-size:13px;color:var(--ink-2);margin-top:8px;min-height:20px;font-weight:600}
+.tag.subj-长笛{background:#f5f3ff;color:#7c3aed}
+.tag.subj-乐理{background:#fdf4ff;color:#c026d3}
