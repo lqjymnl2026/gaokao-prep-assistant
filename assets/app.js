@@ -27,32 +27,26 @@ function confetti(){
 
 /* ---------- 静态数据 ---------- */
 const SUBJECTS = [
-  {name:'语文', emoji:'📖', pct:82, color:'#ef4444'},
-  {name:'数学', emoji:'📐', pct:76, color:'#6366f1'},
-  {name:'英语', emoji:'🔤', pct:88, color:'#10b981'},
-  {name:'历史', emoji:'📜', pct:84, color:'#d97706'},
-  {name:'政治', emoji:'🏛️', pct:80, color:'#0891b2'},
-  {name:'地理', emoji:'🌏', pct:74, color:'#7c3aed'},
+  {name:'语文', emoji:'📖', pct:0, color:'#ef4444'},
+  {name:'数学', emoji:'📐', pct:0, color:'#6366f1'},
+  {name:'英语', emoji:'🔤', pct:0, color:'#10b981'},
+  {name:'历史', emoji:'📜', pct:0, color:'#d97706'},
+  {name:'政治', emoji:'🏛️', pct:0, color:'#0891b2'},
+  {name:'地理', emoji:'🌏', pct:0, color:'#7c3aed'},
 ];
 
-let tasks = [
-  {id:1, subject:'语文', name:'背诵《琵琶行》第 1–3 段', xp:30, done:true,  min:25},
-  {id:2, subject:'数学', name:'三角函数课后练习 P87',   xp:40, done:true,  min:45},
-  {id:3, subject:'英语', name:'背诵 Unit 6 词汇 30 个', xp:25, done:true,  min:20},
-  {id:4, subject:'物理', name:'受力分析专题 10 题',     xp:35, done:false, min:40},
-  {id:5, subject:'化学', name:'氧化还原反应错题订正',   xp:35, done:false, min:30},
-];
+let tasks = [];
 
 const BADGES = [
-  {emoji:'🔥', name:'连续打卡',  sub:'连学 12 天',   locked:false},
-  {emoji:'📐', name:'数学新星',  sub:'正确率 85%',   locked:false},
-  {emoji:'🧠', name:'单词达人',  sub:'词汇 5000+',   locked:false},
-  {emoji:'⏱️', name:'时间管理',  sub:'专注 25h/周',  locked:false},
-  {emoji:'🚀', name:'进阶学霸',  sub:'本周 21 星',   locked:false},
-  {emoji:'🌱', name:'早起打卡',  sub:'7:00 前学习',  locked:false},
-  {emoji:'📚', name:'书山有路',  sub:'累计 50h',     locked:false},
-  {emoji:'🧪', name:'实验达人',  sub:'物理实验全对', locked:false},
-  {emoji:'🎯', name:'精准答题',  sub:'正确率 90%+',  locked:false},
+  {emoji:'🔥', name:'连续打卡',  sub:'连学 12 天',   locked:true},
+  {emoji:'📐', name:'数学新星',  sub:'正确率 85%',   locked:true},
+  {emoji:'🧠', name:'单词达人',  sub:'词汇 5000+',   locked:true},
+  {emoji:'⏱️', name:'时间管理',  sub:'专注 25h/周',  locked:true},
+  {emoji:'🚀', name:'进阶学霸',  sub:'本周 21 星',   locked:true},
+  {emoji:'🌱', name:'早起打卡',  sub:'7:00 前学习',  locked:true},
+  {emoji:'📚', name:'书山有路',  sub:'累计 50h',     locked:true},
+  {emoji:'🧪', name:'实验达人',  sub:'物理实验全对', locked:true},
+  {emoji:'🎯', name:'精准答题',  sub:'正确率 90%+',  locked:true},
   {emoji:'🦉', name:'夜猫学霸',  sub:'22:00 后学习', locked:true},
   {emoji:'🏆', name:'周榜前三',  sub:'本周第 8',     locked:true},
   {emoji:'💯', name:'满分学霸',  sub:'单科 100',     locked:true},
@@ -63,65 +57,56 @@ const BADGES = [
 ];
 
 const PLAN = [
-  {tasks:[{s:'数学', n:'数列求和专题', m:40, d:true},{s:'英语', n:'词汇 Unit 6 · 30 词', m:20, d:true},{s:'长笛', n:'音阶与长音练习', m:20, d:true}]},
-  {tasks:[{s:'语文', n:'文言文实词 15 个', m:25, d:true},{s:'历史', n:'中国古代史·中央集权', m:40, d:true},{s:'长笛', n:'练习曲《科勒35首》', m:30, d:true}]},
-  {tasks:[{s:'数学', n:'三角函数图像与性质', m:45, d:true},{s:'政治', n:'经济生活·价格与消费', m:20, d:true},{s:'长笛', n:'乐曲《渔舟唱晚》分段', m:20, d:false}]},
-  {tasks:[{s:'英语', n:'阅读理解 2 篇精读', m:30, d:true},{s:'地理', n:'自然地理·大气环流', m:35, d:true},{s:'长笛', n:'视唱练耳 15min', m:15, d:true}]},
-  {tasks:[{s:'语文', n:'背诵《琵琶行》', m:25, d:true},{s:'数学', n:'课后练习 P87', m:45, d:true},{s:'英语', n:'Unit 6 词汇', m:20, d:true},{s:'历史', n:'近代史·列强侵华', m:40, d:false},{s:'政治', n:'哲学·唯物论基础', m:30, d:false},{s:'长笛', n:'考前模拟吹奏', m:25, d:false}]},
-  {tasks:[{s:'数学', n:'周测错题重做', m:60, d:false},{s:'地理', n:'人文地理·城市化', m:40, d:false},{s:'长笛', n:'完整曲目合伴奏', m:30, d:false}]},
-  {tasks:[{s:'全科', n:'本周复盘 + 下周计划', m:60, d:false},{s:'英语', n:'作文积累 3 个句型', m:20, d:false},{s:'乐理', n:'乐理真题 20 题', m:20, d:false}]},
+  {tasks:[]},{tasks:[]},{tasks:[]},{tasks:[]},{tasks:[]},{tasks:[]},{tasks:[]},
 ];
 
 const MAPS = {
   math: [
-    {name:'集合与逻辑', emoji:'🧮', pct:92},{name:'函数与导数', emoji:'📈', pct:74},
-    {name:'三角函数',   emoji:'📐', pct:81},{name:'数列',       emoji:'🔢', pct:88},
-    {name:'不等式',     emoji:'⚖️', pct:66},{name:'立体几何',   emoji:'🧊', pct:78},
-    {name:'解析几何',   emoji:'🎯', pct:62},{name:'统计与概率', emoji:'🎲', pct:90},
-    {name:'平面向量',   emoji:'➡️', pct:84},{name:'复数',       emoji:'🌀', pct:95},
-    {name:'导数压轴应用',emoji:'📉', pct:58},{name:'圆锥曲线综合',emoji:'🛰️', pct:60},
+    {name:'集合与逻辑', emoji:'🧮', pct:0},{name:'函数与导数', emoji:'📈', pct:0},
+    {name:'三角函数',   emoji:'📐', pct:0},{name:'数列',       emoji:'🔢', pct:0},
+    {name:'不等式',     emoji:'⚖️', pct:0},{name:'立体几何',   emoji:'🧊', pct:0},
+    {name:'解析几何',   emoji:'🎯', pct:0},{name:'统计与概率', emoji:'🎲', pct:0},
+    {name:'平面向量',   emoji:'➡️', pct:0},{name:'复数',       emoji:'🌀', pct:0},
+    {name:'导数压轴应用',emoji:'📉', pct:0},{name:'圆锥曲线综合',emoji:'🛰️', pct:0},
   ],
   history: [
-    {name:'古代史·中央集权', emoji:'🏯', pct:78},{name:'古代史·经济文化', emoji:'🌾', pct:82},
-    {name:'近代史·列强侵华', emoji:'⚔️', pct:65},{name:'近代史·近代化',   emoji:'🚂', pct:72},
-    {name:'世界史·希腊罗马', emoji:'🏛️', pct:88},{name:'世界近代史·革命', emoji:'🗽', pct:74},
-    {name:'现代史·世界大战', emoji:'🎖️', pct:80},{name:'史料实证·素养',   emoji:'📜', pct:84},
-    {name:'阶段特征·时间轴', emoji:'🗓️', pct:90},{name:'论述题·答题模板', emoji:'✍️', pct:62},
-    {name:'现代史·冷战格局', emoji:'🧊', pct:66},{name:'材料题·概括分析', emoji:'📝', pct:60},
+    {name:'古代史·中央集权', emoji:'🏯', pct:0},{name:'古代史·经济文化', emoji:'🌾', pct:0},
+    {name:'近代史·列强侵华', emoji:'⚔️', pct:0},{name:'近代史·近代化',   emoji:'🚂', pct:0},
+    {name:'世界史·希腊罗马', emoji:'🏛️', pct:0},{name:'世界近代史·革命', emoji:'🗽', pct:0},
+    {name:'现代史·世界大战', emoji:'🎖️', pct:0},{name:'史料实证·素养',   emoji:'📜', pct:0},
+    {name:'阶段特征·时间轴', emoji:'🗓️', pct:0},{name:'论述题·答题模板', emoji:'✍️', pct:0},
+    {name:'现代史·冷战格局', emoji:'🧊', pct:0},{name:'材料题·概括分析', emoji:'📝', pct:0},
   ],
   politics: [
-    {name:'商品与货币',     emoji:'💰', pct:86},{name:'价格与消费',     emoji:'🛒', pct:80},
-    {name:'企业与劳动者',   emoji:'🏭', pct:76},{name:'市场经济',       emoji:'⚖️', pct:72},
-    {name:'公民与政府',     emoji:'🏛️', pct:84},{name:'民主制度',       emoji:'🗳️', pct:78},
-    {name:'文化传承',       emoji:'🎭', pct:88},{name:'唯物论与辩证法', emoji:'🔮', pct:70},
-    {name:'认识论',         emoji:'🧠', pct:74},{name:'时政素材积累',   emoji:'📰', pct:82},
-    {name:'经济全球化',     emoji:'🌐', pct:68},{name:'价值与人生',     emoji:'⚖️', pct:76},
+    {name:'商品与货币',     emoji:'💰', pct:0},{name:'价格与消费',     emoji:'🛒', pct:0},
+    {name:'企业与劳动者',   emoji:'🏭', pct:0},{name:'市场经济',       emoji:'⚖️', pct:0},
+    {name:'公民与政府',     emoji:'🏛️', pct:0},{name:'民主制度',       emoji:'🗳️', pct:0},
+    {name:'文化传承',       emoji:'🎭', pct:0},{name:'唯物论与辩证法', emoji:'🔮', pct:0},
+    {name:'认识论',         emoji:'🧠', pct:0},{name:'时政素材积累',   emoji:'📰', pct:0},
+    {name:'经济全球化',     emoji:'🌐', pct:0},{name:'价值与人生',     emoji:'⚖️', pct:0},
   ],
   geography: [
-    {name:'地球运动',       emoji:'🌍', pct:80},{name:'大气环流',       emoji:'🌪️', pct:68},
-    {name:'水循环',         emoji:'💧', pct:82},{name:'地表形态',       emoji:'⛰️', pct:76},
-    {name:'人口与城市',     emoji:'🏙️', pct:84},{name:'农业与工业',     emoji:'🌾', pct:78},
-    {name:'交通与商业',     emoji:'🚄', pct:72},{name:'中国地理',       emoji:'🗺️', pct:86},
-    {name:'世界地理',       emoji:'🌐', pct:81},{name:'读图与区位分析', emoji:'🧭', pct:58},
-    {name:'等值线判读',     emoji:'🗾', pct:62},{name:'综合题·答题规范', emoji:'📏', pct:66},
+    {name:'地球运动',       emoji:'🌍', pct:0},{name:'大气环流',       emoji:'🌪️', pct:0},
+    {name:'水循环',         emoji:'💧', pct:0},{name:'地表形态',       emoji:'⛰️', pct:0},
+    {name:'人口与城市',     emoji:'🏙️', pct:0},{name:'农业与工业',     emoji:'🌾', pct:0},
+    {name:'交通与商业',     emoji:'🚄', pct:0},{name:'中国地理',       emoji:'🗺️', pct:0},
+    {name:'世界地理',       emoji:'🌐', pct:0},{name:'读图与区位分析', emoji:'🧭', pct:0},
+    {name:'等值线判读',     emoji:'🗾', pct:0},{name:'综合题·答题规范', emoji:'📏', pct:0},
   ],
 };
 
 const QUESTS = [
-  {emoji:'📖', name:'晨读打卡 · 文言文',        meta:'每天 7:00 前完成 · 语文', stars:3, done:true},
-  {emoji:'🔤', name:'单词闯关 · 30 词',         meta:'限时 10 分钟 · 英语',     stars:2, done:true},
-  {emoji:'🧮', name:'数学小题限时赛',            meta:'15 题 / 15 分钟',         stars:3, done:true},
-  {emoji:'📜', name:'历史大事年表挑战',          meta:'50 个事件排序',           stars:2, done:true},
+  {emoji:'📖', name:'晨读打卡 · 文言文',        meta:'每天 7:00 前完成 · 语文', stars:3, done:false},
+  {emoji:'🔤', name:'单词闯关 · 30 词',         meta:'限时 10 分钟 · 英语',     stars:2, done:false},
+  {emoji:'🧮', name:'数学小题限时赛',            meta:'15 题 / 15 分钟',         stars:3, done:false},
+  {emoji:'📜', name:'历史大事年表挑战',          meta:'50 个事件排序',           stars:2, done:false},
   {emoji:'📝', name:'历史论述题限时写',          meta:'500 字 / 15 分钟',        stars:3, done:false},
   {emoji:'🎼', name:'长笛曲目背奏打卡',          meta:'每日练笛 30 分钟',        stars:2, done:false},
   {emoji:'🏛️', name:'政治原理默写擂台',          meta:'30 个原理',               stars:1, done:false},
   {emoji:'🗺️', name:'地理图表判读挑战',          meta:'20 幅地图',               stars:2, done:false},
 ];
 
-const LEADERBOARD = [
-  {name:'陈一鸣', xp:4280, rank:'💎'},{name:'林雨桐', xp:4110, rank:'💎'},{name:'周子昂', xp:3980, rank:'🥇'},
-  {name:'小宇（我）', xp:3860, me:true, rank:'🥇'},{name:'王思远', xp:3720, rank:'🥇'},{name:'赵欣然', xp:3590, rank:'🥈'},
-];
+const LEADERBOARD = [];
 
 const RANKS = [
   {name:'青铜', emoji:'🥉', min:0},
@@ -133,7 +118,7 @@ const RANKS = [
 ];
 
 const PET = {
-  level:7, xp:280, xpMax:400, moodIdx:0,
+  level:1, xp:0, xpMax:400, moodIdx:0,
   moods:['😄 今天心情很好，夸你专注！','😋 吃得饱饱的，充满能量！','🥰 最喜欢和你一起学习了','😴 有点困，喂点东西就精神啦','🤩 哇，你进步好快！'],
   log:'小火龙摇了摇尾巴，等你带它学习～',
 };
@@ -150,55 +135,29 @@ const DAILY_QS = [
    explain:'T=2π/|ω|=2π/2=π，故选 A。'},
 ];
 
-const RECORDS = [
-  {date:'8/14', subject:'数学', content:'三角函数图像与性质 · 习题 10 道', type:'练习', min:45, done:100, master:82},
-  {date:'8/14', subject:'语文', content:'背诵《琵琶行》第 1–3 段',        type:'背诵', min:25, done:100, master:90},
-  {date:'8/14', subject:'英语', content:'Unit 6 核心词汇 30 个',          type:'背诵', min:20, done:100, master:88},
-  {date:'8/14', subject:'历史', content:'近代史 · 列强侵华梳理（进行中）', type:'复习', min:40, done:60,  master:65},
-  {date:'8/14', subject:'长笛', content:'音阶与长音练习（艺考）',        type:'练习', min:20, done:100, master:90},
-  {date:'8/14', subject:'长笛', content:'练习曲《科勒35首》',            type:'练习', min:30, done:80,  master:85},
-  {date:'8/13', subject:'政治', content:'哲学 · 唯物论基本概念',          type:'复习', min:35, done:100, master:72},
-  {date:'8/13', subject:'数学', content:'函数单调性与最值 · 限时小测',    type:'测验', min:30, done:100, master:76},
-  {date:'8/13', subject:'英语', content:'阅读理解 2 篇 + 生词摘抄',       type:'练习', min:30, done:100, master:85},
-  {date:'8/13', subject:'长笛', content:'乐曲《渔舟唱晚》分段练习',       type:'练习', min:25, done:100, master:82},
-  {date:'8/12', subject:'历史', content:'中国古代史 · 中央集权',          type:'练习', min:40, done:100, master:78},
-  {date:'8/12', subject:'语文', content:'文言文实词 15 个 + 翻译',        type:'复习', min:30, done:100, master:86},
-  {date:'8/12', subject:'地理', content:'大气环流与气候类型',             type:'复习', min:35, done:100, master:68},
-  {date:'8/11', subject:'数学', content:'数列通项与求和 · 错题订正',      type:'练习', min:50, done:100, master:88},
-  {date:'8/11', subject:'政治', content:'经济生活 · 企业与劳动者',        type:'练习', min:30, done:100, master:76},
-  {date:'8/10', subject:'英语', content:'时态专项语法填空 15 题',         type:'练习', min:25, done:100, master:83},
-  {date:'8/10', subject:'地理', content:'中国地理分区 · 周测',            type:'测验', min:40, done:100, master:80},
-  {date:'8/10', subject:'乐理', content:'基础乐理章节练习 · 艺考',        type:'练习', min:20, done:100, master:88},
-];
+const RECORDS = [];
 
-const TIMELINE = [
-  {time:'06:40', text:'英语单词打卡 30 个',       xp:'+25'},
-  {time:'07:00', text:'晨读《琵琶行》· 语文',      xp:'+30'},
-  {time:'09:10', text:'数学三角函数练习完成',      xp:'+40'},
-  {time:'14:00', text:'历史近代史梳理 · 晚清',     xp:'+35'},
-  {time:'16:20', text:'政治哲学错题订正',          xp:'+35'},
-  {time:'20:30', text:'晚自习 · 今日复盘',         xp:'+20'},
-];
+const TIMELINE = [];
 
 const DIMS = [
-  {name:'任务完成度', val:86, color:'#6366f1'},
-  {name:'练习正确率', val:82, color:'#10b981'},
-  {name:'学习坚持度', val:90, color:'#f59e0b'},
-  {name:'专注度',     val:78, color:'#06b6d4'},
-  {name:'学习效率',   val:84, color:'#ec4899'},
+  {name:'任务完成度', val:0, color:'#6366f1'},
+  {name:'练习正确率', val:0, color:'#10b981'},
+  {name:'学习坚持度', val:0, color:'#f59e0b'},
+  {name:'专注度',     val:0, color:'#06b6d4'},
+  {name:'学习效率',   val:0, color:'#ec4899'},
 ];
 
-const DURATION = [72, 95, 110, 80, 130, 105, 96];
+const DURATION = [0, 0, 0, 0, 0, 0, 0];
 const DUR_LABELS = ['8/10 周一','8/11 周二','8/12 周三','8/13 周四','8/14 周五','8/15 周六','8/16 周日'];
 const PIE = [
-  {name:'数学', min:150, color:'#6366f1'},
-  {name:'语文', min:120, color:'#ef4444'},
-  {name:'历史', min:100, color:'#d97706'},
-  {name:'英语', min:90,  color:'#10b981'},
-  {name:'政治', min:80,  color:'#0891b2'},
-  {name:'地理', min:60,  color:'#7c3aed'},
+  {name:'数学', min:0, color:'#6366f1'},
+  {name:'语文', min:0, color:'#ef4444'},
+  {name:'历史', min:0, color:'#d97706'},
+  {name:'英语', min:0, color:'#10b981'},
+  {name:'政治', min:0, color:'#0891b2'},
+  {name:'地理', min:0, color:'#7c3aed'},
 ];
-const TREND = [72, 75, 74, 78, 80, 79, 82, 86];
+const TREND = [0, 0, 0, 0, 0, 0, 0, 0];
 const TREND_LABELS = ['W1','W2','W3','W4','W5','W6','W7','W8'];
 
 const AI_RULES = [
@@ -217,14 +176,24 @@ const state = {
   weekOffset:0,
   mapSubject:'math',
   timer:{running:false, remaining:25*60, total:25*60, interval:null},
-  xp: 3250, xpMax: 4000, level: 18,
+  xp: 0, xpMax: 4000, level: 1,
   contentFilter: 'all',
-  rankXp: 5200, coins: 32, combo: 4, forest: 3, chestOpened: false,
-  todayFocusMin: 86, xpGained: 135, coinsEarned: 12, bossKilled: 1, petPlays: 3, pkWins: 1,
+  rankXp: 0, coins: 0, combo: 0, forest: 0, chestOpened: false,
+  todayFocusMin: 0, xpGained: 0, coinsEarned: 0, bossKilled: 0, petPlays: 0, pkWins: 0,
+  streakDays: 0, weekPoints: 0,
   sound: true, music: false, title: '早读战神',
   dungeon: { idx: 0, hp: 1500, defeated: false, log: [] },
   dqIdx: 0, histQIdx: 0, musicQIdx: 0,
-  musicStreak: 3, musicPunchDone: false, musicDone: {},
+  musicStreak: 0, musicPunchDone: false, musicDone: {},
+  repFilter: 'all', repDone: {},
+  wrongBank: [], wrongMax: 0,
+  paper: { phase:'intro', qs:[], qi:0, correct:0, review:[] },
+};
+
+/* 日期集中配置（高考 / 省统考 年份统一在这里改） */
+const CONFIG = {
+  gaokaoDate: '2028-06-07T09:00:00+08:00',
+  artExamDate: '2027-12-15T09:00:00+08:00',
 };
 
 /* ============ 初始化 ============ */
@@ -260,6 +229,9 @@ document.addEventListener('DOMContentLoaded', () => {
   renderHistoryQ();
   renderMusicPlan();
   renderMusicQ();
+  renderRepertoire();
+  renderTheoryPaper();
+  renderWrongBoss();
   renderTable();
   renderDims();
   renderGreet();
@@ -272,7 +244,7 @@ function startClock(){
   const week = ['日','一','二','三','四','五','六'][now.getDay()];
   $('#todayChip').textContent = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 周${week}`;
   // 高考倒计时：2028-06-07
-  const target = new Date('2028-06-07T09:00:00+08:00');
+  const target = new Date(CONFIG.gaokaoDate);
   const days = Math.max(0, Math.ceil((target - now) / 86400000));
   $('#countdown').textContent = days;
 }
@@ -289,13 +261,18 @@ function renderStatic(){
   $('#xpNext').textContent = state.xpMax;
   $('#levelRing').style.setProperty('--p', Math.round(state.xp/state.xpMax*100));
   $('#xpBarFill').style.width = (state.xp/state.xpMax*100) + '%';
-  $('#scoreRing').style.setProperty('--p', 86);
-  $('#scoreRingNum').textContent = 86;
-  $('#doneDonutPct').textContent = '86%';
-  $('#questBarFill').style.width = '70%';
-  $('#questStarCount').textContent = 21;
-  $('#focusBarFill').style.width = '72%';
-  $('#scoreBarFill').style.width = '86%';
+  $('#scoreRing').style.setProperty('--p', 0);
+  $('#scoreRingNum').textContent = 0;
+  $('#doneDonutPct').textContent = '0%';
+  $('#questBarFill').style.width = '0%';
+  $('#questStarCount').textContent = 0;
+  $('#focusBarFill').style.width = (state.todayFocusMin/120*100) + '%';
+  $('#scoreBarFill').style.width = '0%';
+  $('#streakDays').textContent = state.streakDays;
+  $('#weekPoints').textContent = '+' + state.weekPoints;
+  $('#classRank').textContent = '暂无';
+  $('#badgeCount').textContent = '已解锁 0/16';
+  $('#ovScore').textContent = 0;
   $('#goalRangeVal').textContent = '120 分钟';
   $('#taskRangeVal').textContent = '30 个';
 }
@@ -503,6 +480,15 @@ function bindEvents(){
   // 历史攻坚站
   $('#flashNext').addEventListener('click', () => { flashIdx = (flashIdx + 1) % FLASHCARDS.length; renderFlashcards(); sfx.click(); });
   $('#timelineReset').addEventListener('click', renderTimelineGame);
+  // 校考曲目库筛选
+  $('#repFilters').addEventListener('click', e => {
+    const btn = e.target.closest('.mini-tab');
+    if(!btn) return;
+    $$('#repFilters .mini-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    state.repFilter = btn.dataset.cat;
+    renderRepertoire(); sfx.click();
+  });
   // 长笛艺考训练
   $('#musicPunchBtn').addEventListener('click', musicPunch);
   $('#musicQNext').addEventListener('click', () => { state.musicQIdx = (state.musicQIdx + 1) % MUSIC_QS.length; renderMusicQ(); sfx.click(); });
@@ -540,6 +526,11 @@ function goTab(role, tab){
 function renderTasks(){
   const box = $('#taskList');
   box.innerHTML = '';
+  if(!tasks.length){
+    box.innerHTML = '<li class="task-item" style="justify-content:center;color:var(--ink-3)">📭 今日暂无任务，去「学习计划」页添加吧！</li>';
+    updateTaskStats();
+    return;
+  }
   tasks.forEach(t => {
     const li = document.createElement('li');
     li.className = 'task-item' + (t.done ? ' done':'');
@@ -575,7 +566,7 @@ function toggleTask(id){
 
 function updateTaskStats(){
   const done = tasks.filter(t=>t.done).length;
-  const pct = Math.round(done/tasks.length*100);
+  const pct = tasks.length ? Math.round(done/tasks.length*100) : 0;
   $('#taskDone').textContent = done;
   $('#taskTotal').textContent = tasks.length;
   $('#taskPct').textContent = pct;
@@ -657,6 +648,10 @@ function renderQuest(){
 function renderLeaderboard(){
   const ol = $('#leaderboard');
   ol.innerHTML = '';
+  if(!LEADERBOARD.length){
+    ol.innerHTML = '<li style="color:var(--ink-3);justify-content:center">📭 暂无排行数据，开始学习后这里会有你的对手！</li>';
+    return;
+  }
   LEADERBOARD.forEach(l => {
     const li = document.createElement('li');
     li.innerHTML = `<span class="lb-name">${l.rank} ${l.name}${l.me?' 🌟':''}</span><span class="lb-xp">${l.xp} XP</span>`;
@@ -688,6 +683,7 @@ function renderDailyQ(){
       } else {
         b.classList.add('wrong');
         $('#dqFeedback').innerHTML = '😅 正确答案是 ' + q.answer + '。' + q.explain;
+        addWrong({subj:q.subject, text:q.text, opts:q.options.map(o=>o.v), a:q.options.findIndex(o=>o.k===q.answer), exp:q.explain});
         sfx.wrong();
       }
     });
@@ -776,6 +772,10 @@ function aiReply(text){
 function renderTimeline(){
   const tl = $('#timeline');
   tl.innerHTML = '';
+  if(!TIMELINE.length){
+    tl.innerHTML = '<li style="color:var(--ink-3)">📭 今天还没有学习动态，完成第一个任务后自动生成！</li>';
+    return;
+  }
   TIMELINE.forEach(t => {
     const li = document.createElement('li');
     li.innerHTML = `<span class="tl-time">${t.time}</span><span class="tl-text">${t.text}</span> <span class="tl-xp">${t.xp} XP</span>`;
@@ -787,6 +787,11 @@ function renderTable(){
   const tb = $('#contentTable');
   tb.innerHTML = '';
   const rows = RECORDS.filter(r => state.contentFilter==='all' || r.subject===state.contentFilter);
+  if(!rows.length){
+    tb.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--ink-3);padding:26px">📭 暂无学习记录，学习完成后会自动记录在这里</td></tr>';
+    $('#contentSummary').textContent = '本周 0 条记录';
+    return;
+  }
   rows.forEach(r => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
@@ -1049,11 +1054,11 @@ function toggleMusic(){
 /* ---------- 个性称号 ---------- */
 const TITLES = [
   {emoji:'🌅', name:'早读战神',   cond:'连续 7 天早起打卡',     unlocked:true},
-  {emoji:'🗡️', name:'错题终结者', cond:'累计订正错题 50 道',    unlocked:true},
-  {emoji:'🔤', name:'词汇暴君',   cond:'词汇量达 6000',         unlocked:true},
-  {emoji:'🏃', name:'专注苦行僧', cond:'单日专注 240 分钟',     unlocked:true},
-  {emoji:'⭐', name:'满星通关',   cond:'单章副本满星',          unlocked:true},
-  {emoji:'📜', name:'历史学究',   cond:'历史掌握度 ≥85%',      unlocked:true},
+  {emoji:'🗡️', name:'错题终结者', cond:'累计订正错题 50 道',    unlocked:false},
+  {emoji:'🔤', name:'词汇暴君',   cond:'词汇量达 6000',         unlocked:false},
+  {emoji:'🏃', name:'专注苦行僧', cond:'单日专注 240 分钟',     unlocked:false},
+  {emoji:'⭐', name:'满星通关',   cond:'单章副本满星',          unlocked:false},
+  {emoji:'📜', name:'历史学究',   cond:'历史掌握度 ≥85%',      unlocked:false},
   {emoji:'🗺️', name:'地理小达人', cond:'地理掌握度 ≥85%',      unlocked:false},
   {emoji:'🧮', name:'函数大师',   cond:'数学掌握度 ≥85%',      unlocked:false},
   {emoji:'🏛️', name:'政治先知',   cond:'政治掌握度 ≥85%',      unlocked:false},
@@ -1113,6 +1118,7 @@ function renderDungeon(){
   $('#bossAttackBtn').hidden = state.dungeon.defeated;
   $('#bossNextBtn').hidden = !state.dungeon.defeated;
   $('#bossLog').innerHTML = state.dungeon.log.map(l=>`<div>${l}</div>`).join('') || '<div>👋 点击「发起攻击」，用今天的努力击败它！</div>';
+  renderWrongBoss();
 }
 function attackBoss(){
   if(state.dungeon.defeated) return;
@@ -1159,8 +1165,9 @@ function renderReportPreview(){
   const box = $('#reportPreview');
   if(!box) return;
   const done = tasks.filter(t=>t.done).length;
+  const tCount = tasks.length ? `${done}/${tasks.length}` : '—';
   box.innerHTML = `
-    <div class="rp-mini"><div class="rpm-val">${done}/${tasks.length}</div><div class="rpm-label">完成任务</div></div>
+    <div class="rp-mini"><div class="rpm-val">${tCount}</div><div class="rpm-label">完成任务</div></div>
     <div class="rp-mini"><div class="rpm-val">${state.todayFocusMin}</div><div class="rpm-label">专注分钟</div></div>
     <div class="rp-mini"><div class="rpm-val">x${state.combo}</div><div class="rpm-label">最高连击</div></div>
     <div class="rp-mini"><div class="rpm-val">+${state.xpGained}</div><div class="rpm-label">今日 XP</div></div>
@@ -1184,7 +1191,12 @@ function openReport(){
     ['🏅', '黄金段位', '当前段位'],
   ];
   $('#reportGrid').innerHTML = items.map(([e,v,l]) => `<div class="rp-item"><div class="rpi-emoji">${e}</div><div class="rpi-val">${v}</div><div class="rpi-label">${l}</div></div>`).join('');
-  const good = (done/tasks.length>=0.6?1:0)+(state.combo>=4?1:0)+(state.bossKilled>=1?1:0)+(state.todayFocusMin>=80?1:0)+(state.pkWins>=1?1:0);
+  if(done===0 && state.todayFocusMin===0 && state.xpGained===0){
+    $('#reportComment').textContent = '📭 今天还没有学习记录。完成第一个任务、专注一个番茄钟，这里就会生成属于你的专属战报！';
+    $('#reportModal').hidden = false;
+    return;
+  }
+  const good = (tasks.length&&done/tasks.length>=0.6?1:0)+(state.combo>=4?1:0)+(state.bossKilled>=1?1:0)+(state.todayFocusMin>=80?1:0)+(state.pkWins>=1?1:0);
   const comments = [
     '🔥 今天状态爆棚！连击、击杀、专注全线拉满，你就是「高考大魔王」的克星！',
     '💪 今天完成得很扎实，专注度和连击都很好，明天可以再挑战一章副本！',
@@ -1289,6 +1301,7 @@ function pkAnswer(i, btn){
   else {
     btn.classList.add('wrong'); sfx.wrong();
     $$('#pkBox .dq-option')[q.a].classList.add('correct');
+    addWrong({subj:q.subj, text:q.q, opts:q.opts, a:q.a, exp:q.exp});
   }
   $('#pkFeedback').textContent = q.exp;
   setTimeout(() => {
@@ -1445,6 +1458,7 @@ function renderHistoryQ(){
       } else {
         b.classList.add('wrong');
         box.querySelector('.dq-feedback').textContent = '😅 正确答案是 ' + q.answer + '。' + q.explain;
+        addWrong({subj:'历史', text:q.text, opts:q.options.map(o=>o.v), a:q.options.findIndex(o=>o.k===q.answer), exp:q.explain});
         sfx.wrong();
       }
     });
@@ -1477,7 +1491,7 @@ const MUSIC_QS = [
 ];
 function renderMusicPlan(){
   const box = $('#musicCountdown'); if(!box) return;
-  const target = new Date('2027-12-15T09:00:00+08:00');
+  const target = new Date(CONFIG.artExamDate);
   const days = Math.max(0, Math.ceil((target - Date.now()) / 86400000));
   box.textContent = days + ' 天';
   $('#musicStreak').textContent = state.musicStreak;
@@ -1539,9 +1553,200 @@ function renderMusicQ(){
         b.classList.add('wrong');
         opts.querySelectorAll('.dq-option')[q.a].classList.add('correct');
         box.querySelector('.dq-feedback').textContent = '😅 正确答案是 ' + String.fromCharCode(65+q.a) + '。' + q.exp;
+        addWrong({subj:'乐理', text:q.q, opts:q.opts, a:q.a, exp:q.exp});
         sfx.wrong();
       }
     });
     opts.appendChild(b);
   });
+}
+
+/* ============ 校考曲目库 / 乐理真题卷 / 错题魔王 ============ */
+const REPERTOIRE = [
+  {name:'D 大调长笛协奏曲', composer:'莫扎特',     cat:'协奏曲',   diff:5},
+  {name:'长笛协奏曲',       composer:'卡尔·尼尔森', cat:'协奏曲',   diff:5},
+  {name:'卡门幻想曲',       composer:'博尔纳',     cat:'协奏曲',   diff:5},
+  {name:'G 大调长笛奏鸣曲', composer:'巴赫',       cat:'奏鸣曲',   diff:4},
+  {name:'十二首幻想曲 No.1', composer:'泰勒曼',     cat:'练习曲',   diff:3},
+  {name:'24 首随想曲 No.1', composer:'帕格尼尼',   cat:'练习曲',   diff:5},
+  {name:'渔舟唱晚',         composer:'中国作品',    cat:'中国作品', diff:4},
+  {name:'幽思',             composer:'中国作品',    cat:'中国作品', diff:3},
+  {name:'牧童短笛',         composer:'贺绿汀改编',  cat:'中国作品', diff:4},
+  {name:'茉莉花幻想曲',     composer:'中国作品',    cat:'中国作品', diff:4},
+];
+const THEORY_QS = [
+  {q:'C 大调的关系小调是？', opts:['a 小调','d 小调','e 小调','g 小调'], a:0, exp:'C 大调的关系小调为 a 小调（下方小三度）。'},
+  {q:'附点四分音符的时值是？', opts:['一拍半','两拍','三拍','半拍'], a:0, exp:'附点四分音符 = 1 + 1/2 拍，即一拍半。'},
+  {q:'音程 C–E 是？', opts:['大三度','小三度','纯四度','大二度'], a:0, exp:'C 到 E 共 3 个音级、2 个全音，为大三度。'},
+  {q:'五线谱中高音谱号又称？', opts:['G 谱号','F 谱号','C 谱号','D 谱号'], a:0, exp:'高音谱号由 G 音位置演化而来，称 G 谱号。'},
+  {q:'3/8 拍中每小节有几拍？', opts:['3 拍','8 拍','6 拍','1 拍'], a:0, exp:'3/8 拍每小节 3 拍，以八分音符为一拍。'},
+  {q:'“cresc.” 表示？', opts:['渐强','渐弱','强后突弱','重音'], a:0, exp:'crescendo = 渐强。'},
+  {q:'纯八度的音程包含几个音级？', opts:['8 个','7 个','9 个','6 个'], a:0, exp:'纯八度含 8 个音级。'},
+  {q:'D 大调调号中的升号有几个？', opts:['2 个','1 个','3 个','4 个'], a:0, exp:'D 大调为 #F、#C 两个升号。'},
+  {q:'四分休止符的时值等于？', opts:['四分音符','八分音符','二分音符','全音符'], a:0, exp:'四分休止符 = 四分音符的时值。'},
+  {q:'旋律小调上行时哪两级音升高？', opts:['第Ⅵ、Ⅶ级','第Ⅴ、Ⅵ级','第Ⅲ、Ⅳ级','第Ⅶ、Ⅰ级'], a:0, exp:'旋律小调上行升高第Ⅵ、Ⅶ级。'},
+  {q:'“rit.” 表示？', opts:['渐慢','渐快','回原速','自由延长'], a:0, exp:'ritardando = 渐慢。'},
+  {q:'大调自然音阶中半音位于？', opts:['Ⅲ–Ⅳ、Ⅶ–Ⅰ','Ⅰ–Ⅱ、Ⅳ–Ⅴ','Ⅱ–Ⅲ、Ⅵ–Ⅶ','Ⅳ–Ⅴ、Ⅶ–Ⅰ'], a:0, exp:'大调自然音阶半音在 Ⅲ–Ⅳ 与 Ⅶ–Ⅰ。'},
+];
+
+/* ---------- 错题入库 + 错题魔王 ---------- */
+function addWrong(item){
+  const key = item.subj + '|' + item.text;
+  if(!state.wrongBank.some(w => w.subj + '|' + w.text === key)){
+    state.wrongBank.push(item);
+    state.wrongMax = Math.max(state.wrongMax, state.wrongBank.length);
+    renderWrongBoss();
+  }
+}
+function renderWrongBoss(){
+  const card = $('#wrongBossCard'); if(!card) return;
+  const box = $('#wrongBossQ');
+  const full = state.wrongMax*300 + 500;
+  const hp = state.wrongBank.length*300 + 500;
+  if(!state.wrongBank.length){
+    box.innerHTML = '<p style="text-align:center;color:var(--ink-2);padding:10px">🎉 暂无错题！保持全对，错题魔王就不会出现。</p>';
+    $('#wrongBossHpFill').style.width = '0%';
+    $('#wrongBossHpText').textContent = 'HP 0 / 0';
+    $('#wrongBossLeft').textContent = 0;
+    $('#wrongBossLog').innerHTML = state.wrongMax ? '<div>🏆 错题魔王已被击败，再接再厉保持全对！</div>' : '';
+    return;
+  }
+  $('#wrongBossHpFill').style.width = Math.max(4, Math.round(hp/full*100)) + '%';
+  $('#wrongBossHpText').textContent = `HP ${hp} / ${full}`;
+  $('#wrongBossLeft').textContent = state.wrongBank.length;
+  const q = state.wrongBank[0];
+  box.innerHTML = `
+    <span class="dq-tag">❌ 错题复习 · ${q.subj}</span>
+    <div class="dq-text">${q.text}</div>
+    <div class="dq-options">${q.opts.map((o,i)=>`<button class="dq-option" data-i="${i}">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}</div>
+    <div class="dq-feedback" id="wrongBossFb"></div>`;
+  box.querySelectorAll('.dq-option').forEach(b => b.addEventListener('click', () => wrongBossAnswer(+b.dataset.i, b, q)));
+}
+function wrongBossAnswer(i, btn, q){
+  $$('#wrongBossQ .dq-option').forEach(b=>b.disabled=true);
+  const fb = $('#wrongBossFb');
+  if(i === q.a){
+    btn.classList.add('correct');
+    state.wrongBank = state.wrongBank.filter(w => !(w.subj===q.subj && w.text===q.text));
+    state.coins += 5; state.coinsEarned += 5;
+    fb.textContent = '🎉 做对了！错题魔王受到重创 -300 HP！';
+    sfx.bossHit();
+    const fig = $('#wrongBossFigure');
+    fig.classList.add('shake');
+    setTimeout(()=>fig.classList.remove('shake'), 450);
+    if(!state.wrongBank.length){
+      state.xp += 50; state.xpGained += 50; state.bossKilled++;
+      $('#wrongBossLog').innerHTML = '<div>🏆 错题魔王被击败！错题全部清零，+50 XP！</div>';
+      sfx.victory(); confetti(); renderStatic();
+    }
+    setTimeout(renderWrongBoss, 900);
+  } else {
+    btn.classList.add('wrong');
+    $$('#wrongBossQ .dq-option')[q.a].classList.add('correct');
+    fb.textContent = '😅 还差一点：' + q.exp;
+    sfx.wrong();
+    setTimeout(renderWrongBoss, 1600);
+  }
+  renderPet(); renderReportPreview();
+}
+
+/* ---------- 校考曲目库 ---------- */
+function renderRepertoire(){
+  const grid = $('#repGrid'); if(!grid) return;
+  grid.innerHTML = '';
+  const list = REPERTOIRE.filter(r => state.repFilter==='all' || r.cat===state.repFilter);
+  const practiced = Object.keys(state.repDone).length;
+  $('#repCount').textContent = `已练 ${practiced} 首`;
+  list.forEach(r => {
+    const n = state.repDone[r.name] || 0;
+    const done = n >= 3;
+    const div = document.createElement('div');
+    div.className = 'rep-card';
+    div.innerHTML = `
+      <div class="rp-name">${r.name}</div>
+      <div class="rp-composer">${r.composer} · ${r.cat}</div>
+      <div class="rp-meta"><span class="rp-stars">${'⭐'.repeat(r.diff)}${'☆'.repeat(5-r.diff)}</span><span>难度 ${r.diff}/5</span></div>
+      <div class="rp-progress"><i style="width:${Math.min(100, n/3*100)}%"></i></div>
+      <div class="rp-practice">
+        <span class="rp-count">练习 ${n}/3 次 ${done?'✓ 达标':''}</span>
+        <button class="rp-btn ${done?'done':''}" data-name="${r.name}">${done?'✅ 已完成':'🎶 练习 +1'}</button>
+      </div>`;
+    if(!done) div.querySelector('.rp-btn').addEventListener('click', () => practiceRepertoire(r));
+    grid.appendChild(div);
+  });
+}
+function practiceRepertoire(r){
+  state.repDone[r.name] = (state.repDone[r.name]||0) + 1;
+  state.coins += 5; state.coinsEarned += 5;
+  const n = state.repDone[r.name];
+  sfx.complete();
+  if(n >= 3){ sfx.victory(); confetti(); }
+  renderRepertoire(); renderPet(); renderReportPreview();
+}
+
+/* ---------- 乐理真题卷 ---------- */
+function renderTheoryPaper(){
+  const box = $('#theoryPaper'); if(!box) return;
+  if(state.paper.phase==='intro'){
+    box.innerHTML = `
+      <div class="paper-intro">
+        <div class="pi-title">📝 乐理真题卷</div>
+        <div class="pi-sub">共 10 题 · 建议 15 分钟内完成 · 覆盖调式 / 音程 / 节奏 / 记号</div>
+        <button class="btn btn-primary" id="paperStartBtn">🚀 开始答题</button>
+      </div>`;
+    $('#paperStartBtn').addEventListener('click', paperStart);
+  } else if(state.paper.phase==='quiz'){
+    const q = state.paper.qs[state.paper.qi];
+    box.innerHTML = `
+      <div class="pk-progress">第 ${state.paper.qi+1} / 10 题 · 已答对 ${state.paper.correct} 题</div>
+      <div class="daily-question">
+        <div class="dq-text">${q.q}</div>
+        <div class="dq-options">${q.opts.map((o,i)=>`<button class="dq-option" data-i="${i}">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}</div>
+        <div class="dq-feedback" id="paperFb"></div>
+      </div>`;
+    box.querySelectorAll('.dq-option').forEach(b => b.addEventListener('click', () => paperAnswer(+b.dataset.i, b)));
+  } else {
+    const grade = state.paper.correct>=9?'优秀':state.paper.correct>=7?'良好':state.paper.correct>=6?'及格':'需努力';
+    const gcls = state.paper.correct>=7?'good':state.paper.correct>=6?'mid':'bad';
+    box.innerHTML = `
+      <div class="paper-grade ${gcls}">${state.paper.correct>=7?'🎉':'📝'} 得分 ${state.paper.correct}/10 · ${grade}</div>
+      <div class="paper-score">
+        <div class="ps-box"><b>${state.paper.correct}</b><span>答对</span></div>
+        <div class="ps-box"><b>${10-state.paper.correct}</b><span>答错</span></div>
+      </div>
+      <p style="text-align:center;font-size:13.5px;color:var(--ink-2)">获得 ${state.paper.correct*3} 学习币${state.paper.correct>=7?' · 乐理掌握度提升！':''}</p>
+      <div class="paper-review">${state.paper.review.map(r=>`<div class="pr-item"><b class="${r.ok?'ok':'no'}">${r.ok?'✓':'✗'}</b> ${r.q} ${r.ok?'':'→ '+r.answer}</div>`).join('')}</div>
+      <div style="text-align:center;margin-top:12px"><button class="btn btn-primary" id="paperAgainBtn">🔄 再考一张</button></div>`;
+    $('#paperAgainBtn').addEventListener('click', () => { state.paper.phase='intro'; renderTheoryPaper(); });
+  }
+}
+function paperStart(){
+  state.paper.qs = [...THEORY_QS].sort(()=>Math.random()-.5).slice(0,10);
+  state.paper.qi = 0; state.paper.correct = 0; state.paper.review = [];
+  state.paper.phase = 'quiz'; renderTheoryPaper(); sfx.click();
+}
+function paperAnswer(i, btn){
+  const q = state.paper.qs[state.paper.qi];
+  $$('#theoryPaper .dq-option').forEach(b=>b.disabled=true);
+  const ok = i === q.a;
+  state.paper.review.push({q:q.q, ok, answer:q.opts[q.a]});
+  if(ok){
+    btn.classList.add('correct'); state.paper.correct++;
+    sfx.complete();
+  } else {
+    btn.classList.add('wrong');
+    $$('#theoryPaper .dq-option')[q.a].classList.add('correct');
+    addWrong({subj:'乐理', text:q.q, opts:q.opts, a:q.a, exp:q.exp});
+    sfx.wrong(); renderWrongBoss();
+  }
+  $('#paperFb').textContent = ok ? '🎉 正确！' + q.exp : '😅 正确答案是 ' + String.fromCharCode(65+q.a) + '。' + q.exp;
+  setTimeout(() => {
+    state.paper.qi++;
+    if(state.paper.qi >= state.paper.qs.length){
+      state.paper.phase = 'result';
+      state.coins += state.paper.correct*3; state.coinsEarned += state.paper.correct*3;
+      if(state.paper.correct >= 7) sfx.victory();
+    }
+    renderTheoryPaper(); renderPet(); renderReportPreview(); renderStatic();
+  }, 1300);
 }
